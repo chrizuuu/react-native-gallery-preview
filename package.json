@@ -1,5 +1,5 @@
 {
-  "name": "react-native-photo-viewer",
+  "name": "@chrizuuu/react-native-photo-viewer",
   "version": "1.0.0",
   "description": "test",
   "main": "lib/commonjs/index",
@@ -38,9 +38,17 @@
   "keywords": [
     "react-native",
     "ios",
-    "android"
+    "android",
+    "reanimated",
+    "photo-viewer",
+    "image-viewer",
+    "photo-gallery",
+    "gallery"
   ],
-  "repository": "https://github.com/chrizuuu/react-native-photo-viewer",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chrizuuu/react-native-photo-viewer.git"
+  },
   "author": "Krzysztof Bonecki <krzysztofboneckikontakt@gmail.com> (https://github.com/chrizuuu)",
   "license": "MIT",
   "bugs": {
@@ -122,5 +130,8 @@
   },
   "dependencies": {
     "eslint-plugin-prettier": "^5.1.3"
+  },
+  "directories": {
+    "example": "example"
   }
 }

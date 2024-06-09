@@ -2,7 +2,6 @@ import React, { memo, useCallback, useMemo, useState } from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
 import type { GalleryItemProps } from '../types';
 import Animated, {
-  clamp,
   interpolate,
   runOnJS,
   useAnimatedStyle,
@@ -12,10 +11,10 @@ import Animated, {
 } from 'react-native-reanimated';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import { useVector } from '../utils/useVector';
-import { withRubberClamp } from '../utils/clamp';
+import { clamp, withRubberClamp } from '../utils/clamp';
 import type { SpringConfig } from 'react-native-reanimated/lib/typescript/reanimated2/animation/springUtils';
 import { maxTranslationX, maxTranslationY } from '../utils/maxTranslation';
-import { DebugView } from './DebugView.tsx/DebugView';
+// import { DebugView } from './DebugView.tsx/DebugView';
 
 const DURATION = 400;
 const MIN_SCALE = 1;

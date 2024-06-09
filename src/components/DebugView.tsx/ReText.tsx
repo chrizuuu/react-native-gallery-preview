@@ -1,12 +1,17 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from 'react';
 import { TextProps as RNTextProps, TextInput } from 'react-native';
-import Animated, { useAnimatedProps, useDerivedValue } from 'react-native-reanimated';
+import Animated, {
+  AnimatedProps,
+  SharedValue,
+  useAnimatedProps,
+  useDerivedValue,
+} from 'react-native-reanimated';
 
 interface TextProps {
   text: string;
-  value: Animated.SharedValue<number | boolean> | number | boolean;
-  style?: Animated.AnimateProps<RNTextProps>['style'];
+  value: SharedValue<number | boolean> | number | boolean;
+  style?: AnimatedProps<RNTextProps>['style'];
 }
 
 const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);

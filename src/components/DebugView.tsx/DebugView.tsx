@@ -11,8 +11,9 @@ export const DebugView = ({ values }: DebugViewProps) => {
   return (
     <SafeAreaView style={styles.container}>
       {Object.keys(values).map((key) => {
-        if (values[key] === undefined) return null;
-        return <ReText style={styles.text} key={`item-${key}`} text={key} value={values[key]} />;
+        const value = values[key];
+        if (value === undefined) return null;
+        return <ReText style={styles.text} key={`item-${key}`} text={key} value={value} />;
       })}
     </SafeAreaView>
   );

@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import { Image, ImageStyle, StyleProp } from 'react-native';
 import { ImageItemURI } from 'src/types';
 
@@ -8,7 +8,7 @@ interface ImageComponentProps {
   style: StyleProp<ImageStyle>;
 }
 
-export const DefaultImageComponent = memo((props: ImageComponentProps) => {
+export const DefaultImageComponent = (props: ImageComponentProps) => {
   return (
     <Image
       source={props.source}
@@ -17,6 +17,6 @@ export const DefaultImageComponent = memo((props: ImageComponentProps) => {
       style={props.style}
     />
   );
-});
+};
 
 DefaultImageComponent.displayName = 'DefaultImageComponent';

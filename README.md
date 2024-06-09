@@ -1,31 +1,48 @@
-# react-native-image-viewer
+# react-native-photo-viewer
 
-Photo viewing component with gesture support
+PhotoPreview is a modal component for image preview with full gesture support, based on [Reanimated](https://docs.swmansion.com/react-native-reanimated/) and [React Native Gesture Handler](https://docs.swmansion.com/react-native-gesture-handler/).
 
-## Installation
+### Features
+
+* ⚡  Smooth gesture interactions and animations
+* 🔍 Double Tap and Pinch to zoom
+* 👆 Pull down to close
+* 📱 Supports both iOS and Android.
+
+Get started by [setting up reanimated](https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/getting-started/#installation) and [react-native-gesture-handler](https://docs.swmansion.com/react-native-gesture-handler/docs/fundamentals/installation)!
 
 ```sh
-npm install react-native-image-viewer
+npm install @chrizuuu/react-native-photo-viewer
+# or
+yarn add @chrizuuu/react-native-photo-viewer
+
 ```
 
-## Usage
+### Example
 
-```js
-import { multiply } from 'react-native-image-viewer';
+```tsx
+import React, { useState } from 'react';
+import { Button, View } from 'react-native';
+import ImageViewer from '@chrizuuu/react-native-photo-viewer';
 
-// ...
+export const App = () => {
+  const [isVisible, setIsVisible] = useState(false);
 
-const result = await multiply(3, 7);
+  const images = [
+    { uri: 'https://example.com/image1.jpg' },
+    { uri: 'https://example.com/image2.jpg' },
+    // Add more images here
+  ];
+
+  return (
+    <View>
+      <Button title="Open Image Viewer" onPress={() => setIsVisible(true)} />
+      <ImageViewer
+        isVisible={isVisible}
+        onRequestClose={() => setIsVisible(false)}
+        images={images}
+      />
+    </View>
+  );
+};
 ```
-
-## Contributing
-
-See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
-
-## License
-
-MIT
-
----
-
-Made with [create-react-native-library](https://github.com/callstack/react-native-builder-bob)
