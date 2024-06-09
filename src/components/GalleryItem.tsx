@@ -140,8 +140,6 @@ export const GalleryItem = memo(
       rootTranslateX.value = withSpring(getImagePositionX(index)[0], SPRING_CONFIG);
     };
 
-    // Gestures
-
     const pinchGesture = Gesture.Pinch()
       .onStart((event) => {
         onStartInteraction();
@@ -319,16 +317,22 @@ export const GalleryItem = memo(
             rootTranslateX.value = withSpring(currentImagePositionX[0], SPRING_CONFIG);
           }
         } else {
-          if (translation.x.value > edgesX[1] || translation.x.value < edgesX[0]) {
+          if (
+            translation.x.value + offset.x.value > edgesX[1] ||
+            translation.x.value + offset.x.value < edgesX[0]
+          ) {
             translation.x.value = withSpring(
-              clamp(translation.x.value, edgesX[0], edgesX[1]),
+              clamp(translation.x.value, edgesX[0] - offset.x.value, edgesX[1] - offset.x.value),
               SPRING_CONFIG,
             );
           }
 
-          if (translation.y.value > edgesY[1] || translation.y.value < edgesY[0]) {
+          if (
+            translation.y.value + offset.y.value > edgesY[1] ||
+            translation.y.value + offset.y.value < edgesY[0]
+          ) {
             translation.y.value = withSpring(
-              clamp(translation.y.value, edgesY[0], edgesY[1]),
+              clamp(translation.y.value, edgesY[0] - offset.y.value, edgesY[1] - offset.y.value),
               SPRING_CONFIG,
             );
           }
@@ -381,7 +385,7 @@ export const GalleryItem = memo(
         runOnJS(setIsFocused)(!isFocused);
       });
 
-    const gestures = Gesture.Exclusive(Gesture.Race(pinchGesture), tap);
+    const gestures = Gesture.Exclusive(Gesture.Race(panGesture, pinchGesture), tap);
 
     return (
       <View style={styles.wrapper}>
@@ -403,7 +407,7 @@ export const GalleryItem = memo(
             </Animated.View>
           </View>
         </GestureDetector>
-        <DebugView
+        {/* <DebugView
           values={{
             scale: scale,
             translationX: translation.x,
@@ -415,7 +419,7 @@ export const GalleryItem = memo(
             // width,
             // height,
           }}
-        />
+        /> */}
       </View>
     );
   },
