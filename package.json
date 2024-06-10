@@ -1,5 +1,5 @@
 {
-  "name": "@chrizuuu/react-native-photo-viewer",
+  "name": "react-native-gallery-preview",
   "version": "1.0.0",
   "description": "test",
   "main": "lib/commonjs/index",
@@ -42,19 +42,20 @@
     "reanimated",
     "photo-viewer",
     "image-viewer",
+    "photo-preview",
     "photo-gallery",
     "gallery"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chrizuuu/react-native-photo-viewer.git"
+    "url": "git+https://github.com/chrizuuu/react-native-gallery-preview.git"
   },
   "author": "Krzysztof Bonecki <krzysztofboneckikontakt@gmail.com> (https://github.com/chrizuuu)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/chrizuuu/react-native-photo-viewer/issues"
+    "url": "https://github.com/chrizuuu/react-native-gallery-preview/issues"
   },
-  "homepage": "https://github.com/chrizuuu/react-native-photo-viewer#readme",
+  "homepage": "https://github.com/chrizuuu/react-native-gallery-preview#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -132,6 +133,7 @@
     "eslint-plugin-prettier": "^5.1.3"
   },
   "directories": {
-    "example": "example"
+    "example": "example",
+    "lib": "lib"
   }
 }

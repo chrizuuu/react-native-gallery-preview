@@ -1,3 +1,5 @@
-import { ImageViewer } from './ImageViewer';
+import { GalleryPreview } from './GalleryPreview';
+import type { GalleryPreviewProps, GalleryImageComponentProps, GalleryHeaderProps } from './types';
 
-export default ImageViewer;
+export default GalleryPreview;
+export type { GalleryPreviewProps, GalleryImageComponentProps, GalleryHeaderProps };

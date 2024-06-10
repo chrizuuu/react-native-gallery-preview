@@ -4,14 +4,14 @@ import { TouchableOpacity } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
-import { HeaderProps } from 'src/types';
+import { GalleryHeaderProps } from 'src/types';
 
 export function DefaultHeader({
   onClose,
   currentImageIndex,
   imagesLength,
   isFocused,
-}: HeaderProps) {
+}: GalleryHeaderProps) {
   if (!isFocused) {
     return null;
   }

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { ModalContainer } from './components/ModalContainer/ModalContainer';
-import { StyleSheet, useWindowDimensions, View } from 'react-native';
+import { StatusBar, StyleSheet, useWindowDimensions, View } from 'react-native';
 import Animated, {
   runOnJS,
   useAnimatedReaction,
@@ -8,12 +8,12 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { GalleryItem } from './components/GalleryItem';
 import { DefaultHeader } from './components/DefaultHeader/DefaultHeader';
-import type { ImageViewerProps } from './types';
+import type { GalleryPreviewProps } from './types';
 import { DefaultImageComponent } from './components/DefaultImageComponent/DefaultImageComponent';
+import { GalleryItem } from './components/GalleryItem';
 
-export const ImageViewer = ({
+export const GalleryPreview = ({
   images,
   isVisible,
   onRequestClose,
@@ -22,7 +22,7 @@ export const ImageViewer = ({
   simultaneousRenderedImages = 6,
   HeaderComponent = DefaultHeader,
   ImageComponent = DefaultImageComponent,
-}: ImageViewerProps) => {
+}: GalleryPreviewProps) => {
   const dimensions = useWindowDimensions();
 
   const [index, setIndex] = useState(initialIndex);
@@ -73,6 +73,7 @@ export const ImageViewer = ({
 
   return (
     <ModalContainer isVisible={isVisible} onRequestClose={onRequestClose}>
+      <StatusBar hidden={!isFocused} translucent />
       <Animated.View style={[wrapperAnimatedStyle, styles.wrapper]}>
         <GestureHandlerRootView style={styles.gestureContainer}>
           <Animated.View style={[containerAnimatedStyle, styles.container, { columnGap: gap }]}>

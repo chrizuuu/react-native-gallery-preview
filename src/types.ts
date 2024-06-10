@@ -1,8 +1,8 @@
-import type { ImageStyle, ImageURISource, StyleProp } from 'react-native';
+import type { ImageURISource } from 'react-native';
 import type { SharedValue } from 'react-native-reanimated';
 export type ImageItemURI = ImageURISource;
 
-export interface ImageViewerProps {
+export interface GalleryPreviewProps {
   isVisible: boolean;
 
   /**
@@ -33,15 +33,15 @@ export interface ImageViewerProps {
   /**
    * Optional header component to be rendered above the image viewer.
    */
-  HeaderComponent?: (props: HeaderProps) => React.JSX.Element | null;
+  HeaderComponent?: (props: GalleryHeaderProps) => React.JSX.Element | null;
 
   /**
    * Optional custom component to render each image.
    */
-  ImageComponent?: (props: ImageComponentProps) => React.JSX.Element;
+  ImageComponent?: (props: GalleryImageComponentProps) => React.JSX.Element;
 }
 
-export interface HeaderProps {
+export interface GalleryHeaderProps {
   /**
    * Function to close the image viewer.
    */
@@ -74,10 +74,10 @@ export interface GalleryItemProps {
   onClose: () => void;
   setIsFocused: (val: boolean) => void;
   isFocused: boolean;
-  ImageComponent: (props: ImageComponentProps) => React.JSX.Element;
+  ImageComponent: (props: GalleryImageComponentProps) => React.JSX.Element;
 }
 
-export interface ImageComponentProps {
+export interface GalleryImageComponentProps {
   source: ImageItemURI;
   /**
    * Function to be called when the image is loaded.
@@ -85,5 +85,8 @@ export interface ImageComponentProps {
    * @param height - The height of the loaded image.
    */
   onLoad: (width: number, height: number) => void;
-  style: StyleProp<ImageStyle>;
+  style: {
+    width: number;
+    height: number;
+  };
 }

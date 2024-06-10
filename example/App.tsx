@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import { View, Button, Text, StyleSheet } from 'react-native';
-import ImageViewer from '../src';
+import GalleryPreview from '../src';
 
 const images = [
   {
@@ -49,9 +49,13 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>react-native-photo-viewer</Text>
-      <Button title="Open photo viewer" onPress={handleOpenImageViewer} />
-      <ImageViewer isVisible={isVisible} onRequestClose={handleCloseImageViewer} images={images} />
+      <Text style={styles.text}>react-native-gallery-preview</Text>
+      <Button title="Open gallery preview" onPress={handleOpenImageViewer} />
+      <GalleryPreview
+        isVisible={isVisible}
+        onRequestClose={handleCloseImageViewer}
+        images={images}
+      />
     </View>
   );
 }

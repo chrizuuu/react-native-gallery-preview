@@ -1,6 +1,6 @@
-# react-native-photo-viewer
+# react-native-gallery-preview
 
-PhotoPreview is a modal component for image preview with full gesture support, based on [Reanimated](https://docs.swmansion.com/react-native-reanimated/) and [React Native Gesture Handler](https://docs.swmansion.com/react-native-gesture-handler/).
+GalleryPreview is a modal component for gallery preview with full gesture support, based on [Reanimated](https://docs.swmansion.com/react-native-reanimated/) and [React Native Gesture Handler](https://docs.swmansion.com/react-native-gesture-handler/).
 
 ### Features
 
@@ -12,9 +12,9 @@ PhotoPreview is a modal component for image preview with full gesture support, b
 Get started by [setting up reanimated](https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/getting-started/#installation) and [react-native-gesture-handler](https://docs.swmansion.com/react-native-gesture-handler/docs/fundamentals/installation)!
 
 ```sh
-npm install @chrizuuu/react-native-photo-viewer
+npm install react-native-gallery-preview
 # or
-yarn add @chrizuuu/react-native-photo-viewer
+yarn add react-native-gallery-preview
 
 ```
 
@@ -23,7 +23,7 @@ yarn add @chrizuuu/react-native-photo-viewer
 ```tsx
 import React, { useState } from 'react';
 import { Button, View } from 'react-native';
-import ImageViewer from '@chrizuuu/react-native-photo-viewer';
+import GalleryPreview from 'react-native-gallery-preview';
 
 export const App = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -36,8 +36,8 @@ export const App = () => {
 
   return (
     <View>
-      <Button title="Open Image Viewer" onPress={() => setIsVisible(true)} />
-      <ImageViewer
+      <Button title="Open Gallery Preview" onPress={() => setIsVisible(true)} />
+      <GalleryPreview
         isVisible={isVisible}
         onRequestClose={() => setIsVisible(false)}
         images={images}

@@ -397,10 +397,7 @@ export const GalleryItem = memo(
                   onLoad={(width, height) => {
                     setImageDimensions({ width: width, height: height });
                   }}
-                  style={{
-                    width: contentContainerSize.width,
-                    height: contentContainerSize.height,
-                  }}
+                  style={contentContainerSize}
                 />
               </GestureDetector>
             </Animated.View>
