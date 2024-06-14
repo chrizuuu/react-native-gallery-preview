@@ -13,7 +13,6 @@ import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import { useVector } from "../utils/useVector";
 import { clamp, withRubberClamp } from "../utils/clamp";
 import type { SpringConfig } from "react-native-reanimated/lib/typescript/reanimated2/animation/springUtils";
-import { maxTranslationX, maxTranslationY } from "../utils/maxTranslation";
 // import { DebugView } from './DebugView.tsx/DebugView';
 
 const DURATION = 400;
@@ -108,17 +107,23 @@ export const GalleryItem = memo(
       [gap, width],
     );
 
-    const getScaledEdgesX = (): readonly [number, number] => {
+    const getScaledEdgesX = (
+      scaleValue?: number,
+    ): readonly [number, number] => {
       "worklet";
-      const scaledWith = scale.value * contentContainerSize.width;
+      const _scale = scaleValue !== undefined ? scaleValue : scale.value;
+      const scaledWith = _scale * contentContainerSize.width;
       const xPoint = Math.abs((scaledWith - width) / 2);
 
       return [-xPoint, xPoint];
     };
 
-    const getScaledEdgesY = (): readonly [number, number] => {
+    const getScaledEdgesY = (
+      scaleValue?: number,
+    ): readonly [number, number] => {
       "worklet";
-      const scaledHeight = scale.value * contentContainerSize.height;
+      const _scale = scaleValue !== undefined ? scaleValue : scale.value;
+      const scaledHeight = _scale * contentContainerSize.height;
       const yPoint = Math.abs((scaledHeight - height) / 2);
 
       return [-yPoint, yPoint];
@@ -402,27 +407,29 @@ export const GalleryItem = memo(
           const zoomScale = Math.min(
             contentContainerSize.width > contentContainerSize.height
               ? height / contentContainerSize.height
-              : (contentContainerSize.width / width + 1) * 1.5,
-            7,
+              : 2.5,
+            MAX_SCALE,
           );
-          const translateX = maxTranslationX(
-            width,
-            contentContainerSize.width,
-            (contentCenterX - event.x) * (zoomScale - 1),
-            zoomScale,
-          );
-          const translateY = maxTranslationY(
-            height,
-            contentContainerSize.height,
-            (contentCenterY - event.y) * (zoomScale - 1),
-            zoomScale,
+          const edgesX = getScaledEdgesX(zoomScale);
+          const edgesY = getScaledEdgesY(zoomScale);
+
+          translation.x.value = withTiming(
+            clamp(
+              (contentCenterX - event.x) * (zoomScale - 1),
+              edgesX[0],
+              edgesX[1],
+            ),
+            { duration: DURATION },
           );
 
-          translation.x.value = withTiming(translateX, { duration: DURATION });
-          savedTranslation.x.value = translateX;
-
-          translation.y.value = withTiming(translateY, { duration: DURATION });
-          savedTranslation.y.value = translateY;
+          translation.y.value = withTiming(
+            clamp(
+              (contentCenterY - event.y) * (zoomScale - 1),
+              edgesY[0],
+              edgesY[1],
+            ),
+            { duration: DURATION },
+          );
 
           scale.value = withTiming(zoomScale, { duration: DURATION });
           savedScale.value = zoomScale;
@@ -449,8 +456,11 @@ export const GalleryItem = memo(
               <GestureDetector gesture={doubleTap}>
                 <ImageComponent
                   source={item}
-                  onLoad={(width, height) => {
-                    setImageDimensions({ width: width, height: height });
+                  onLoad={(imageWidth, imageHeight) => {
+                    setImageDimensions({
+                      width: imageWidth,
+                      height: imageHeight,
+                    });
                   }}
                   style={contentContainerSize}
                 />
