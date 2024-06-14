@@ -1,6 +1,6 @@
-import React from 'react';
-import { Image, ImageStyle, StyleProp } from 'react-native';
-import { ImageItemURI } from 'src/types';
+import React from "react";
+import { Image, ImageStyle, StyleProp } from "react-native";
+import { ImageItemURI } from "src/types";
 
 interface ImageComponentProps {
   source: ImageItemURI;
@@ -13,10 +13,12 @@ export const DefaultImageComponent = (props: ImageComponentProps) => {
     <Image
       source={props.source}
       resizeMode="contain"
-      onLoad={(e) => props.onLoad(e.nativeEvent.source.width, e.nativeEvent.source.height)}
+      onLoad={(e) =>
+        props.onLoad(e.nativeEvent.source.width, e.nativeEvent.source.height)
+      }
       style={props.style}
     />
   );
 };
 
-DefaultImageComponent.displayName = 'DefaultImageComponent';
+DefaultImageComponent.displayName = "DefaultImageComponent";

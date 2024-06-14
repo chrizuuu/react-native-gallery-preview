@@ -1,17 +1,17 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { ModalContainer } from './components/ModalContainer/ModalContainer';
-import { StatusBar, StyleSheet, useWindowDimensions, View } from 'react-native';
+import React, { useCallback, useEffect, useState } from "react";
+import { ModalContainer } from "./components/ModalContainer/ModalContainer";
+import { StatusBar, StyleSheet, useWindowDimensions, View } from "react-native";
 import Animated, {
   runOnJS,
   useAnimatedReaction,
   useAnimatedStyle,
   useSharedValue,
-} from 'react-native-reanimated';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { DefaultHeader } from './components/DefaultHeader/DefaultHeader';
-import type { GalleryPreviewProps } from './types';
-import { DefaultImageComponent } from './components/DefaultImageComponent/DefaultImageComponent';
-import { GalleryItem } from './components/GalleryItem';
+} from "react-native-reanimated";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { DefaultHeader } from "./components/DefaultHeader/DefaultHeader";
+import type { GalleryPreviewProps } from "./types";
+import { DefaultImageComponent } from "./components/DefaultImageComponent/DefaultImageComponent";
+import { GalleryItem } from "./components/GalleryItem";
 
 export const GalleryPreview = ({
   images,
@@ -54,11 +54,14 @@ export const GalleryPreview = ({
   }));
 
   const isImageVisible = useCallback(
-    (index: number): boolean => {
+    (imageIndex: number): boolean => {
       const halfVisible = Math.floor(simultaneousRenderedImages / 2);
-      const start = Math.max(0, index - halfVisible);
-      const end = Math.min(images.length - 1, start + simultaneousRenderedImages - 1);
-      return index >= start && index <= end;
+      const start = Math.max(0, imageIndex - halfVisible);
+      const end = Math.min(
+        images.length - 1,
+        start + simultaneousRenderedImages - 1,
+      );
+      return imageIndex >= start && imageIndex <= end;
     },
     [images.length, simultaneousRenderedImages],
   );
@@ -69,14 +72,28 @@ export const GalleryPreview = ({
       translateX.value = initialIndex * -(dimensions.width + gap);
       opacity.value = 1;
     }
-  }, [changeIndex, dimensions.width, gap, initialIndex, isVisible, opacity, translateX]);
+  }, [
+    changeIndex,
+    dimensions.width,
+    gap,
+    initialIndex,
+    isVisible,
+    opacity,
+    translateX,
+  ]);
 
   return (
     <ModalContainer isVisible={isVisible} onRequestClose={onRequestClose}>
       <StatusBar hidden={!isFocused} translucent />
       <Animated.View style={[wrapperAnimatedStyle, styles.wrapper]}>
         <GestureHandlerRootView style={styles.gestureContainer}>
-          <Animated.View style={[containerAnimatedStyle, styles.container, { columnGap: gap }]}>
+          <Animated.View
+            style={[
+              containerAnimatedStyle,
+              styles.container,
+              { columnGap: gap },
+            ]}
+          >
             {images.map((image, index) => {
               const visible = isImageVisible(index);
               return (
@@ -118,7 +135,7 @@ export const GalleryPreview = ({
 };
 
 const styles = StyleSheet.create({
-  wrapper: { flex: 1, backgroundColor: '#000' },
+  wrapper: { flex: 1, backgroundColor: "#000" },
   gestureContainer: { flex: 1 },
-  container: { flexDirection: 'row' },
+  container: { flexDirection: "row" },
 });

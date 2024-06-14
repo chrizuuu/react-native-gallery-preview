@@ -1,5 +1,5 @@
-import type { ImageURISource } from 'react-native';
-import type { SharedValue } from 'react-native-reanimated';
+import type { ImageURISource } from "react-native";
+import type { SharedValue } from "react-native-reanimated";
 export type ImageItemURI = ImageURISource;
 
 export interface GalleryPreviewProps {

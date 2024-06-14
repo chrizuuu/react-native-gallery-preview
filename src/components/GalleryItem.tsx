@@ -1,6 +1,6 @@
-import React, { memo, useCallback, useMemo, useState } from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
-import type { GalleryItemProps } from '../types';
+import React, { memo, useCallback, useMemo, useState } from "react";
+import { Dimensions, StyleSheet, View } from "react-native";
+import type { GalleryItemProps } from "../types";
 import Animated, {
   interpolate,
   runOnJS,
@@ -8,12 +8,12 @@ import Animated, {
   useSharedValue,
   withSpring,
   withTiming,
-} from 'react-native-reanimated';
-import { Gesture, GestureDetector } from 'react-native-gesture-handler';
-import { useVector } from '../utils/useVector';
-import { clamp, withRubberClamp } from '../utils/clamp';
-import type { SpringConfig } from 'react-native-reanimated/lib/typescript/reanimated2/animation/springUtils';
-import { maxTranslationX, maxTranslationY } from '../utils/maxTranslation';
+} from "react-native-reanimated";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import { useVector } from "../utils/useVector";
+import { clamp, withRubberClamp } from "../utils/clamp";
+import type { SpringConfig } from "react-native-reanimated/lib/typescript/reanimated2/animation/springUtils";
+import { maxTranslationX, maxTranslationY } from "../utils/maxTranslation";
 // import { DebugView } from './DebugView.tsx/DebugView';
 
 const DURATION = 400;
@@ -50,8 +50,8 @@ export const GalleryItem = memo(
       width: number;
       height: number;
     }>({
-      width: Dimensions.get('screen').width,
-      height: Dimensions.get('screen').height,
+      width: Dimensions.get("screen").width,
+      height: Dimensions.get("screen").height,
     });
     const contentContainerSize = useMemo(() => {
       return {
@@ -89,7 +89,7 @@ export const GalleryItem = memo(
     });
 
     const onStartInteraction = () => {
-      'worklet';
+      "worklet";
       offset.x.value = offset.x.value + translation.x.value;
       offset.y.value = offset.y.value + translation.y.value;
 
@@ -101,7 +101,7 @@ export const GalleryItem = memo(
 
     const getImagePositionX = useCallback(
       (i: number): readonly [number, number] => {
-        'worklet';
+        "worklet";
 
         return [-(width + gap) * i, -width * (i + 1)];
       },
@@ -109,7 +109,7 @@ export const GalleryItem = memo(
     );
 
     const getScaledEdgesX = (): readonly [number, number] => {
-      'worklet';
+      "worklet";
       const scaledWith = scale.value * contentContainerSize.width;
       const xPoint = Math.abs((scaledWith - width) / 2);
 
@@ -117,7 +117,7 @@ export const GalleryItem = memo(
     };
 
     const getScaledEdgesY = (): readonly [number, number] => {
-      'worklet';
+      "worklet";
       const scaledHeight = scale.value * contentContainerSize.height;
       const yPoint = Math.abs((scaledHeight - height) / 2);
 
@@ -125,18 +125,29 @@ export const GalleryItem = memo(
     };
 
     const reset = () => {
-      'worklet';
+      "worklet";
       translation.x.value =
-        scale.value > 1 ? withTiming(0, { duration: DURATION }) : withSpring(0, SPRING_CONFIG);
+        scale.value > 1
+          ? withTiming(0, { duration: DURATION })
+          : withSpring(0, SPRING_CONFIG);
       translation.y.value =
-        scale.value > 1 ? withTiming(0, { duration: DURATION }) : withSpring(0, SPRING_CONFIG);
+        scale.value > 1
+          ? withTiming(0, { duration: DURATION })
+          : withSpring(0, SPRING_CONFIG);
       offset.x.value =
-        scale.value > 1 ? withTiming(0, { duration: DURATION }) : withSpring(0, SPRING_CONFIG);
+        scale.value > 1
+          ? withTiming(0, { duration: DURATION })
+          : withSpring(0, SPRING_CONFIG);
       offset.y.value =
-        scale.value > 1 ? withTiming(0, { duration: DURATION }) : withSpring(0, SPRING_CONFIG);
+        scale.value > 1
+          ? withTiming(0, { duration: DURATION })
+          : withSpring(0, SPRING_CONFIG);
       opacity.value = withTiming(1, { duration: DURATION });
       scale.value = withTiming(1, { duration: DURATION });
-      rootTranslateX.value = withSpring(getImagePositionX(index)[0], SPRING_CONFIG);
+      rootTranslateX.value = withSpring(
+        getImagePositionX(index)[0],
+        SPRING_CONFIG,
+      );
     };
 
     const pinchGesture = Gesture.Pinch()
@@ -152,9 +163,11 @@ export const GalleryItem = memo(
         const deltaY = event.focalY - (height / 2 + offset.y.value);
 
         translation.x.value =
-          deltaX + ((-1 * scale.value) / savedScale.value) * initialFocal.x.value;
+          deltaX +
+          ((-1 * scale.value) / savedScale.value) * initialFocal.x.value;
         translation.y.value =
-          deltaY + ((-1 * scale.value) / savedScale.value) * initialFocal.y.value;
+          deltaY +
+          ((-1 * scale.value) / savedScale.value) * initialFocal.y.value;
 
         scale.value = withRubberClamp(
           savedScale.value * event.scale,
@@ -177,8 +190,12 @@ export const GalleryItem = memo(
               ((-1 * MAX_SCALE) / savedScale.value) * initialFocal.y.value -
               ((-1 * scale.value) / savedScale.value) * initialFocal.y.value;
 
-            translation.x.value = withTiming(translation.x.value + diffX, { duration: DURATION });
-            translation.y.value = withTiming(translation.y.value + diffY, { duration: DURATION });
+            translation.x.value = withTiming(translation.x.value + diffX, {
+              duration: DURATION,
+            });
+            translation.y.value = withTiming(translation.y.value + diffY, {
+              duration: DURATION,
+            });
             scale.value = withTiming(MAX_SCALE, {
               duration: DURATION,
             });
@@ -187,17 +204,29 @@ export const GalleryItem = memo(
             const edgesY = getScaledEdgesY();
 
             if (offset.x.value + translation.x.value > edgesX[1]) {
-              translation.x.value = withSpring(edgesX[1] - offset.x.value, SPRING_CONFIG);
+              translation.x.value = withSpring(
+                edgesX[1] - offset.x.value,
+                SPRING_CONFIG,
+              );
             } else if (offset.x.value + translation.x.value < edgesX[0]) {
-              translation.x.value = withSpring(edgesX[0] - offset.x.value, SPRING_CONFIG);
+              translation.x.value = withSpring(
+                edgesX[0] - offset.x.value,
+                SPRING_CONFIG,
+              );
             }
 
             const currHeight = contentContainerSize.height * scale.value;
             if (currHeight > height) {
               if (offset.y.value + translation.y.value > edgesY[1]) {
-                translation.y.value = withSpring(edgesY[1] - offset.y.value, SPRING_CONFIG);
+                translation.y.value = withSpring(
+                  edgesY[1] - offset.y.value,
+                  SPRING_CONFIG,
+                );
               } else if (offset.y.value + translation.y.value < edgesY[0]) {
-                translation.y.value = withSpring(edgesY[0] - offset.y.value, SPRING_CONFIG);
+                translation.y.value = withSpring(
+                  edgesY[0] - offset.y.value,
+                  SPRING_CONFIG,
+                );
               }
             } else {
               translation.y.value = withSpring(0, SPRING_CONFIG);
@@ -267,9 +296,18 @@ export const GalleryItem = memo(
             0,
             edgesY[1],
           );
-          opacity.value = interpolate(translation.y.value, [0, height / 2], [1, 0]);
-          scale.value = interpolate(translation.y.value, [0, height / 2], [1, 0.66]);
-          shouldClose.value = velocityY >= 0 && translation.y.value > contentCenterY / 2;
+          opacity.value = interpolate(
+            translation.y.value,
+            [0, height / 2],
+            [1, 0],
+          );
+          scale.value = interpolate(
+            translation.y.value,
+            [0, height / 2],
+            [1, 0.66],
+          );
+          shouldClose.value =
+            velocityY >= 0 && translation.y.value > contentCenterY / 2;
         } else {
           translation.y.value = withRubberClamp(
             savedTranslation.y.value + translationY,
@@ -298,7 +336,10 @@ export const GalleryItem = memo(
           const needToTransX = Math.abs(getImagePositionX(1)[0] / 2);
 
           if ((isFirst && translationX > 0) || (isLast && translationX < 0)) {
-            rootTranslateX.value = withSpring(currentImagePositionX[0], SPRING_CONFIG);
+            rootTranslateX.value = withSpring(
+              currentImagePositionX[0],
+              SPRING_CONFIG,
+            );
           } else if (
             Math.abs(velocityX) >= needToTransX ||
             Math.abs(translationX) >= needToTransX
@@ -313,7 +354,10 @@ export const GalleryItem = memo(
             rootTranslateX.value = withSpring(newPosition[0], SPRING_CONFIG);
             currentIndex.value = newIndex;
           } else {
-            rootTranslateX.value = withSpring(currentImagePositionX[0], SPRING_CONFIG);
+            rootTranslateX.value = withSpring(
+              currentImagePositionX[0],
+              SPRING_CONFIG,
+            );
           }
         } else {
           if (
@@ -321,7 +365,11 @@ export const GalleryItem = memo(
             translation.x.value + offset.x.value < edgesX[0]
           ) {
             translation.x.value = withSpring(
-              clamp(translation.x.value, edgesX[0] - offset.x.value, edgesX[1] - offset.x.value),
+              clamp(
+                translation.x.value,
+                edgesX[0] - offset.x.value,
+                edgesX[1] - offset.x.value,
+              ),
               SPRING_CONFIG,
             );
           }
@@ -331,7 +379,11 @@ export const GalleryItem = memo(
             translation.y.value + offset.y.value < edgesY[0]
           ) {
             translation.y.value = withSpring(
-              clamp(translation.y.value, edgesY[0] - offset.y.value, edgesY[1] - offset.y.value),
+              clamp(
+                translation.y.value,
+                edgesY[0] - offset.y.value,
+                edgesY[1] - offset.y.value,
+              ),
               SPRING_CONFIG,
             );
           }
@@ -384,7 +436,10 @@ export const GalleryItem = memo(
         runOnJS(setIsFocused)(!isFocused);
       });
 
-    const gestures = Gesture.Exclusive(Gesture.Race(panGesture, pinchGesture), tap);
+    const gestures = Gesture.Exclusive(
+      Gesture.Race(panGesture, pinchGesture),
+      tap,
+    );
 
     return (
       <View style={styles.wrapper}>
@@ -420,17 +475,17 @@ export const GalleryItem = memo(
     );
   },
 );
-GalleryItem.displayName = 'AnimatedImage';
+GalleryItem.displayName = "AnimatedImage";
 
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: '#000',
+    backgroundColor: "#000",
   },
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    overflow: 'hidden',
+    justifyContent: "center",
+    alignItems: "center",
+    overflow: "hidden",
   },
 });

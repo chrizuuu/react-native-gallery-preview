@@ -1,4 +1,4 @@
-import { useSharedValue, SharedValue } from 'react-native-reanimated';
+import { useSharedValue, SharedValue } from "react-native-reanimated";
 
 /**
  * @summary Type representing a vector

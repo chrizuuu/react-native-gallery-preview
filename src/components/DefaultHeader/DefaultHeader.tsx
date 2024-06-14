@@ -1,10 +1,10 @@
-import React from 'react';
-import { SafeAreaView, Text } from 'react-native';
-import { TouchableOpacity } from 'react-native';
-import { StyleSheet } from 'react-native';
-import { View } from 'react-native';
-import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
-import { GalleryHeaderProps } from 'src/types';
+import React from "react";
+import { SafeAreaView, Text } from "react-native";
+import { TouchableOpacity } from "react-native";
+import { StyleSheet } from "react-native";
+import { View } from "react-native";
+import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
+import { GalleryHeaderProps } from "src/types";
 
 export function DefaultHeader({
   onClose,
@@ -39,20 +39,20 @@ export function DefaultHeader({
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
+    width: "100%",
     zIndex: 2,
     top: 0,
-    position: 'absolute',
-    backgroundColor: 'rgb(0, 0, 0)',
+    position: "absolute",
+    backgroundColor: "rgb(0, 0, 0)",
   },
   safeArea: {
     flex: 1,
-    backgroundColor: 'rgb(0, 0, 0)',
+    backgroundColor: "rgb(0, 0, 0)",
   },
   wrapper: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     height: 54,
   },
   titleWrapper: {
@@ -60,10 +60,10 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    fontWeight: "bold",
+    textAlign: "center",
     letterSpacing: 2,
-    color: '#fff',
+    color: "#fff",
   },
   closeButtonWrapper: {
     flex: 1,
@@ -73,13 +73,13 @@ const styles = StyleSheet.create({
     width: 28,
     height: 28,
     borderRadius: 25,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   closeButtonIcon: {
     fontSize: 20,
-    color: '#fff',
-    fontWeight: 'bold',
+    color: "#fff",
+    fontWeight: "bold",
   },
   right: {
     flex: 1,

@@ -1,12 +1,16 @@
 const top = (screenHeight: number, contentHeight: number, scale: number) => {
-  'worklet';
-  return contentHeight * scale < screenHeight ? 0 : (contentHeight * scale - screenHeight) / 2;
+  "worklet";
+  return contentHeight * scale < screenHeight
+    ? 0
+    : (contentHeight * scale - screenHeight) / 2;
 };
 
 const left = (screenWidth: number, contentWidth: number, scale: number) => {
-  'worklet';
+  "worklet";
 
-  return contentWidth * scale < screenWidth ? 0 : (contentWidth * scale - screenWidth) / 2;
+  return contentWidth * scale < screenWidth
+    ? 0
+    : (contentWidth * scale - screenWidth) / 2;
 };
 
 const maxTranslationX = (
@@ -15,7 +19,7 @@ const maxTranslationX = (
   translateX: number,
   scale: number,
 ) => {
-  'worklet';
+  "worklet";
   const maxXOffset = left(screenWidth, contentWidth, scale);
 
   if (translateX > maxXOffset) {
@@ -34,7 +38,7 @@ const maxTranslationY = (
   translateY: number,
   scale: number,
 ) => {
-  'worklet';
+  "worklet";
   const maxYOffset = top(screenHeight, contentHeight, scale);
   if (translateY > maxYOffset) {
     return maxYOffset;
