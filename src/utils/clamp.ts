@@ -14,14 +14,12 @@ export const withRubberClamp = (
   dim: number,
   min: number,
   max: number,
-  consoleLog?: boolean,
 ) => {
   "worklet";
   const clampedX = clamp(x, min, max);
   const diff = Math.abs(x - clampedX);
   const direction = clampedX > x ? -1 : 1;
 
-  if (consoleLog) console.log("minMax", min, max);
   const _rubberStrength =
     typeof rubberStrength === "number"
       ? rubberStrength
@@ -29,9 +27,6 @@ export const withRubberClamp = (
         ? rubberStrength.dir0
         : rubberStrength.dir1;
 
-  if (consoleLog) console.log("rubberStrheng", _rubberStrength);
   const result = clampedX + direction * rubberClamp(diff, _rubberStrength, dim);
-
-  if (consoleLog) console.log("result", x, clampedX, result);
   return result;
 };
