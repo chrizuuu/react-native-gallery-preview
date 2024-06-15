@@ -12,20 +12,8 @@ import Animated, {
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import { useVector } from "../utils/useVector";
 import { clamp, withRubberClamp } from "../utils/clamp";
-import type { SpringConfig } from "react-native-reanimated/lib/typescript/reanimated2/animation/springUtils";
+import { DURATION, MIN_SCALE } from "../constants";
 // import { DebugView } from './DebugView.tsx/DebugView';
-
-const DURATION = 400;
-const MIN_SCALE = 1;
-const MAX_SCALE = 8;
-
-const SPRING_CONFIG: SpringConfig = {
-  damping: 1000,
-  mass: 1,
-  stiffness: 250,
-  restDisplacementThreshold: 0.02,
-  restSpeedThreshold: 4,
-};
 
 export const GalleryItem = memo(
   ({
@@ -44,6 +32,8 @@ export const GalleryItem = memo(
     setIsFocused,
     isFocused,
     ImageComponent,
+    maxScale,
+    springConfig,
   }: GalleryItemProps) => {
     const [imageDimensions, setImageDimensions] = useState<{
       width: number;
@@ -134,24 +124,24 @@ export const GalleryItem = memo(
       translation.x.value =
         scale.value > 1
           ? withTiming(0, { duration: DURATION })
-          : withSpring(0, SPRING_CONFIG);
+          : withSpring(0, springConfig);
       translation.y.value =
         scale.value > 1
           ? withTiming(0, { duration: DURATION })
-          : withSpring(0, SPRING_CONFIG);
+          : withSpring(0, springConfig);
       offset.x.value =
         scale.value > 1
           ? withTiming(0, { duration: DURATION })
-          : withSpring(0, SPRING_CONFIG);
+          : withSpring(0, springConfig);
       offset.y.value =
         scale.value > 1
           ? withTiming(0, { duration: DURATION })
-          : withSpring(0, SPRING_CONFIG);
+          : withSpring(0, springConfig);
       opacity.value = withTiming(1, { duration: DURATION });
       scale.value = withTiming(1, { duration: DURATION });
       rootTranslateX.value = withSpring(
         getImagePositionX(index)[0],
-        SPRING_CONFIG,
+        springConfig,
       );
     };
 
@@ -177,22 +167,22 @@ export const GalleryItem = memo(
         scale.value = withRubberClamp(
           savedScale.value * event.scale,
           0.45,
-          MAX_SCALE,
+          maxScale,
           MIN_SCALE,
-          MAX_SCALE,
+          maxScale,
         );
       })
       .onEnd(() => {
         if (scale.value <= 1) {
           reset();
         } else {
-          if (scale.value > MAX_SCALE) {
+          if (scale.value > maxScale) {
             const diffX =
-              ((-1 * MAX_SCALE) / savedScale.value) * initialFocal.x.value -
+              ((-1 * maxScale) / savedScale.value) * initialFocal.x.value -
               ((-1 * scale.value) / savedScale.value) * initialFocal.x.value;
 
             const diffY =
-              ((-1 * MAX_SCALE) / savedScale.value) * initialFocal.y.value -
+              ((-1 * maxScale) / savedScale.value) * initialFocal.y.value -
               ((-1 * scale.value) / savedScale.value) * initialFocal.y.value;
 
             translation.x.value = withTiming(translation.x.value + diffX, {
@@ -201,7 +191,7 @@ export const GalleryItem = memo(
             translation.y.value = withTiming(translation.y.value + diffY, {
               duration: DURATION,
             });
-            scale.value = withTiming(MAX_SCALE, {
+            scale.value = withTiming(maxScale, {
               duration: DURATION,
             });
           } else {
@@ -211,12 +201,12 @@ export const GalleryItem = memo(
             if (offset.x.value + translation.x.value > edgesX[1]) {
               translation.x.value = withSpring(
                 edgesX[1] - offset.x.value,
-                SPRING_CONFIG,
+                springConfig,
               );
             } else if (offset.x.value + translation.x.value < edgesX[0]) {
               translation.x.value = withSpring(
                 edgesX[0] - offset.x.value,
-                SPRING_CONFIG,
+                springConfig,
               );
             }
 
@@ -225,17 +215,17 @@ export const GalleryItem = memo(
               if (offset.y.value + translation.y.value > edgesY[1]) {
                 translation.y.value = withSpring(
                   edgesY[1] - offset.y.value,
-                  SPRING_CONFIG,
+                  springConfig,
                 );
               } else if (offset.y.value + translation.y.value < edgesY[0]) {
                 translation.y.value = withSpring(
                   edgesY[0] - offset.y.value,
-                  SPRING_CONFIG,
+                  springConfig,
                 );
               }
             } else {
-              translation.y.value = withSpring(0, SPRING_CONFIG);
-              offset.y.value = withSpring(0, SPRING_CONFIG);
+              translation.y.value = withSpring(0, springConfig);
+              offset.y.value = withSpring(0, springConfig);
             }
           }
         }
@@ -343,7 +333,7 @@ export const GalleryItem = memo(
           if ((isFirst && translationX > 0) || (isLast && translationX < 0)) {
             rootTranslateX.value = withSpring(
               currentImagePositionX[0],
-              SPRING_CONFIG,
+              springConfig,
             );
           } else if (
             Math.abs(velocityX) >= needToTransX ||
@@ -356,12 +346,12 @@ export const GalleryItem = memo(
                   ? index + 1
                   : index;
             const newPosition = getImagePositionX(newIndex);
-            rootTranslateX.value = withSpring(newPosition[0], SPRING_CONFIG);
+            rootTranslateX.value = withSpring(newPosition[0], springConfig);
             currentIndex.value = newIndex;
           } else {
             rootTranslateX.value = withSpring(
               currentImagePositionX[0],
-              SPRING_CONFIG,
+              springConfig,
             );
           }
         } else {
@@ -375,7 +365,7 @@ export const GalleryItem = memo(
                 edgesX[0] - offset.x.value,
                 edgesX[1] - offset.x.value,
               ),
-              SPRING_CONFIG,
+              springConfig,
             );
           }
 
@@ -389,7 +379,7 @@ export const GalleryItem = memo(
                 edgesY[0] - offset.y.value,
                 edgesY[1] - offset.y.value,
               ),
-              SPRING_CONFIG,
+              springConfig,
             );
           }
         }
@@ -406,10 +396,11 @@ export const GalleryItem = memo(
         } else {
           const zoomScale = Math.min(
             contentContainerSize.width > contentContainerSize.height
-              ? height / contentContainerSize.height
+              ? (height / contentContainerSize.height) * 1.1
               : 2.5,
-            MAX_SCALE,
+            maxScale,
           );
+
           const edgesX = getScaledEdgesX(zoomScale);
           const edgesY = getScaledEdgesY(zoomScale);
 

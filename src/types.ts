@@ -1,5 +1,7 @@
 import type { ImageURISource } from "react-native";
 import type { SharedValue } from "react-native-reanimated";
+import { SpringConfig } from "react-native-reanimated/lib/typescript/reanimated2/animation/springUtils";
+
 export type ImageItemURI = ImageURISource;
 
 export interface GalleryPreviewProps {
@@ -39,6 +41,24 @@ export interface GalleryPreviewProps {
    * Optional custom component to render each image.
    */
   ImageComponent?: (props: GalleryImageComponentProps) => React.JSX.Element;
+  /**
+  Spring config
+     * @default
+      {
+        damping: 1000,
+        mass: 1,
+        stiffness: 250,
+        restDisplacementThreshold: 0.02,
+        restSpeedThreshold: 4,
+      }
+     */
+  springConfig?: SpringConfig;
+
+  /**
+   * The maximum scale of the image.
+   * @default 8
+   */
+  maxScale?: number;
 }
 
 export interface GalleryHeaderProps {
@@ -75,6 +95,8 @@ export interface GalleryItemProps {
   setIsFocused: (val: boolean) => void;
   isFocused: boolean;
   ImageComponent: (props: GalleryImageComponentProps) => React.JSX.Element;
+  springConfig: SpringConfig;
+  maxScale: number;
 }
 
 export interface GalleryImageComponentProps {

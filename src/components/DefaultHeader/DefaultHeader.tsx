@@ -40,7 +40,6 @@ export function DefaultHeader({
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    zIndex: 2,
     top: 0,
     position: "absolute",
     backgroundColor: "rgb(0, 0, 0)",

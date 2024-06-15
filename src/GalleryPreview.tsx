@@ -12,6 +12,7 @@ import { DefaultHeader } from "./components/DefaultHeader/DefaultHeader";
 import type { GalleryPreviewProps } from "./types";
 import { DefaultImageComponent } from "./components/DefaultImageComponent/DefaultImageComponent";
 import { GalleryItem } from "./components/GalleryItem";
+import { SPRING_CONFIG, MAX_SCALE } from "./constants";
 
 export const GalleryPreview = ({
   images,
@@ -22,6 +23,8 @@ export const GalleryPreview = ({
   simultaneousRenderedImages = 6,
   HeaderComponent = DefaultHeader,
   ImageComponent = DefaultImageComponent,
+  springConfig = SPRING_CONFIG,
+  maxScale = MAX_SCALE,
 }: GalleryPreviewProps) => {
   const dimensions = useWindowDimensions();
 
@@ -94,18 +97,17 @@ export const GalleryPreview = ({
               { columnGap: gap },
             ]}
           >
-            {images.map((image, index) => {
-              const visible = isImageVisible(index);
+            {images.map((image, i) => {
+              const visible = isImageVisible(i);
               return (
-                <View key={index} style={{ ...dimensions }}>
+                <View key={i} style={{ ...dimensions }}>
                   {visible && (
                     <GalleryItem
-                      key={index}
                       item={image}
-                      index={index}
+                      index={i}
                       currentIndex={currentIndex}
-                      isFirst={index === 0}
-                      isLast={index === images.length - 1}
+                      isFirst={i === 0}
+                      isLast={i === images.length - 1}
                       rootTranslateX={translateX}
                       opacity={opacity}
                       width={dimensions.width}
@@ -116,6 +118,8 @@ export const GalleryPreview = ({
                       isFocused={isFocused}
                       setIsFocused={setIsFocused}
                       ImageComponent={ImageComponent}
+                      springConfig={springConfig}
+                      maxScale={maxScale}
                     />
                   )}
                 </View>
