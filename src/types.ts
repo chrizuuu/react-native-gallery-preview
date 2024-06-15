@@ -35,7 +35,7 @@ export interface GalleryPreviewProps {
   /**
    * Optional header component to be rendered above the image viewer.
    */
-  HeaderComponent?: (props: GalleryHeaderProps) => React.JSX.Element | null;
+  HeaderComponent?: (props: GalleryHeaderProps) => React.ReactNode;
 
   /**
    * Optional custom component to render each image.
