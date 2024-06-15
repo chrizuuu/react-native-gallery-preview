@@ -8,15 +8,15 @@
     <img align="right" height="720" src="example.gif">
   </div>
 
-  **GalleryPreview** is a flexible modal component for easy gallery previews with full gesture support. Using Reanimated and React Native Gesture Handler, it gives a smooth and simple user experience for both iOS and Android.
+  **GalleryPreview** is a flexible modal component for easy gallery previews with full gesture support. Using `Reanimated` and `React Native Gesture Handler`, it gives a smooth and simple user experience for both iOS and Android.
   
   ### Features
   
   * ⚡ **Smooth Gesture Interactions and Animations:** Experience fluid and responsive animations and gestures for a delightful user interface.
   * 🔍 **Double Tap and Pinch to zoom:** Users can effortlessly zoom in and out of images with simple double-tap and pinch gestures
   * 👆 **Pull down to close:** Intuitive pull-down gesture to close the gallery preview, making navigation seamless.
-  * 📱 **Supports both iOS and Android:** Fully compatible with both iOS and Android devices, ensuring a consistent experience across platforms.
-  * 📱 **Working with Expo**
+  * 📱 **Supports both `iOS` and `Android`:** Fully compatible with both iOS and Android devices, ensuring a consistent experience across platforms.
+  * 📱 **Compatible with `Expo`**
 
   ### Get started
   Before you can use GalleryPreview, you need to set up react-native-reanimated and react-native-gesture-handler. Follow the links below for detailed   installation guides:
