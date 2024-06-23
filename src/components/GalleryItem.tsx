@@ -302,7 +302,9 @@ export const GalleryItem = memo(
             [1, 0.66],
           );
           shouldClose.value =
-            velocityY >= 0 && translation.y.value > contentCenterY / 2;
+            velocityY >= 0 &&
+            translation.y.value + velocityY * 0.3 >
+              contentContainerSize.height / 10;
         } else {
           translation.y.value = withRubberClamp(
             savedTranslation.y.value + translationY,
