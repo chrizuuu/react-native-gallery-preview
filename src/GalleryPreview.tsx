@@ -35,14 +35,12 @@ export const GalleryPreview = ({
   const opacity = useSharedValue(1);
   const currentIndex = useSharedValue(initialIndex);
 
-  const changeIndex = useCallback((newIndex: number) => {
-    setIndex(newIndex);
-  }, []);
-
   useAnimatedReaction(
     () => currentIndex.value,
-    (newIndex) => runOnJS(changeIndex)(newIndex),
-    [currentIndex, changeIndex],
+    (newIndex) => {
+      runOnJS(setIndex)(newIndex);
+    },
+    [currentIndex],
   );
 
   const wrapperAnimatedStyle = useAnimatedStyle(
@@ -70,13 +68,15 @@ export const GalleryPreview = ({
   );
 
   useEffect(() => {
-    if (!isVisible) {
-      setTimeout(() => changeIndex(initialIndex), 200);
-      translateX.value = initialIndex * -(dimensions.width + gap);
+    translateX.value = initialIndex * -(dimensions.width + gap);
+    if (isVisible) {
       opacity.value = 1;
+      currentIndex.value = initialIndex;
+      translateX.value = initialIndex * -(dimensions.width + gap);
+      setIsFocused(true);
     }
   }, [
-    changeIndex,
+    currentIndex,
     dimensions.width,
     gap,
     initialIndex,
