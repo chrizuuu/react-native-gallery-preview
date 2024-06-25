@@ -1,6 +1,6 @@
 {
   "name": "react-native-gallery-preview",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "test",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
