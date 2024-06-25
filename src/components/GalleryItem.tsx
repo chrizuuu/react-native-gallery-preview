@@ -234,8 +234,11 @@ export const GalleryItem = memo(
     const panGesture = Gesture.Pan()
       .minDistance(10)
       .maxPointers(1)
-      .onStart(() => {
+      .onStart((event) => {
         onStartInteraction();
+        if (scale.value === 1 && event.velocityY > event.velocityX) {
+          rootTranslateX.value = getImagePositionX(currentIndex.value)[0];
+        }
         initRootTranslateX.value = rootTranslateX.value;
         savedTranslation.x.value = translation.x.value;
         savedTranslation.y.value = translation.y.value;
@@ -478,7 +481,6 @@ export const GalleryItem = memo(
     );
   },
 );
-GalleryItem.displayName = "AnimatedImage";
 
 const styles = StyleSheet.create({
   wrapper: {
