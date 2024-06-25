@@ -12,7 +12,7 @@ export function ModalContainer(props: ModalContainerProps) {
   return (
     <Modal
       transparent
-      animationType="fade"
+      animationType={props.isVisible ? "fade" : "none"}
       presentationStyle="overFullScreen"
       visible={props.isVisible}
       onRequestClose={props.onRequestClose}
