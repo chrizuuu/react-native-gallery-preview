@@ -25,6 +25,9 @@ export const GalleryPreview = ({
   ImageComponent = DefaultImageComponent,
   springConfig = SPRING_CONFIG,
   maxScale = MAX_SCALE,
+  doubleTabEnabled = true,
+  pinchEnabled = true,
+  swipeToCloseEnabled = true,
 }: GalleryPreviewProps) => {
   const dimensions = useWindowDimensions();
 
@@ -120,6 +123,9 @@ export const GalleryPreview = ({
                       ImageComponent={ImageComponent}
                       springConfig={springConfig}
                       maxScale={maxScale}
+                      swipeToCloseEnabled={swipeToCloseEnabled}
+                      pinchEnabled={pinchEnabled}
+                      doubleTabEnabled={doubleTabEnabled}
                     />
                   )}
                 </View>

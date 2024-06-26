@@ -59,6 +59,21 @@ export interface GalleryPreviewProps {
    * @default 8
    */
   maxScale?: number;
+
+  /**
+   * @default true
+   */
+  doubleTabEnabled?: boolean;
+
+  /**
+   * @default true
+   */
+  pinchEnabled?: boolean;
+
+  /**
+   * @default true
+   */
+  swipeToCloseEnabled?: boolean;
 }
 
 export interface GalleryHeaderProps {
@@ -97,6 +112,9 @@ export interface GalleryItemProps {
   ImageComponent: (props: GalleryImageComponentProps) => React.JSX.Element;
   springConfig: SpringConfig;
   maxScale: number;
+  doubleTabEnabled: boolean;
+  pinchEnabled: boolean;
+  swipeToCloseEnabled: boolean;
 }
 
 export interface GalleryImageComponentProps {
