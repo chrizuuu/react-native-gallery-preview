@@ -34,6 +34,9 @@ export const GalleryItem = memo(
     ImageComponent,
     maxScale,
     springConfig,
+    doubleTabEnabled,
+    swipeToCloseEnabled,
+    pinchEnabled,
   }: GalleryItemProps) => {
     const [imageDimensions, setImageDimensions] = useState<{
       width: number;
@@ -148,6 +151,7 @@ export const GalleryItem = memo(
     };
 
     const pinchGesture = Gesture.Pinch()
+      .enabled(pinchEnabled)
       .onStart((event) => {
         onStartInteraction(true);
         initialFocal.x.value = event.focalX - (width / 2 + offset.x.value);
@@ -253,7 +257,8 @@ export const GalleryItem = memo(
         const edgesY = getScaledEdgesY();
 
         isPanningOut.value = !isPanningOut.value
-          ? scale.value === 1 &&
+          ? swipeToCloseEnabled &&
+            scale.value === 1 &&
             getImagePositionX(index)[0] === rootTranslateX.value &&
             ((velocityY > 0 && velocityY > Math.abs(velocityX)) ||
               translationY > Math.abs(translationX))
@@ -393,11 +398,15 @@ export const GalleryItem = memo(
       });
 
     const doubleTap = Gesture.Tap()
+      .enabled(doubleTabEnabled)
       .numberOfTaps(2)
       .onStart(() => {
         onStartInteraction(true);
       })
       .onEnd((event) => {
+        if (event.numberOfPointers !== 1) {
+          return;
+        }
         if (scale.value > 1) {
           reset();
         } else {
