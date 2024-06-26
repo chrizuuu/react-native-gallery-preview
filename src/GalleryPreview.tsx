@@ -57,14 +57,14 @@ export const GalleryPreview = ({
   const isImageVisible = useCallback(
     (imageIndex: number): boolean => {
       const halfVisible = Math.floor(simultaneousRenderedImages / 2);
-      const start = Math.max(0, imageIndex - halfVisible);
+      const start = Math.max(0, index - halfVisible);
       const end = Math.min(
         images.length - 1,
         start + simultaneousRenderedImages - 1,
       );
       return imageIndex >= start && imageIndex <= end;
     },
-    [images.length, simultaneousRenderedImages],
+    [images.length, index, simultaneousRenderedImages],
   );
 
   useEffect(() => {
