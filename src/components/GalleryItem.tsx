@@ -77,7 +77,7 @@ export const GalleryItem = memo(
       };
     });
 
-    const onStartInteraction = () => {
+    const onStartInteraction = (withUnFocus?: boolean) => {
       "worklet";
       offset.x.value = offset.x.value + translation.x.value;
       offset.y.value = offset.y.value + translation.y.value;
@@ -85,7 +85,9 @@ export const GalleryItem = memo(
       translation.x.value = 0;
       translation.y.value = 0;
 
-      runOnJS(setIsFocused)(false);
+      if (withUnFocus) {
+        runOnJS(setIsFocused)(false);
+      }
     };
 
     const getImagePositionX = useCallback(
@@ -147,7 +149,7 @@ export const GalleryItem = memo(
 
     const pinchGesture = Gesture.Pinch()
       .onStart((event) => {
-        onStartInteraction();
+        onStartInteraction(true);
         initialFocal.x.value = event.focalX - (width / 2 + offset.x.value);
         initialFocal.y.value = event.focalY - (height / 2 + offset.y.value);
         savedScale.value = scale.value;
@@ -393,7 +395,7 @@ export const GalleryItem = memo(
     const doubleTap = Gesture.Tap()
       .numberOfTaps(2)
       .onStart(() => {
-        onStartInteraction();
+        onStartInteraction(true);
       })
       .onEnd((event) => {
         if (scale.value > 1) {
