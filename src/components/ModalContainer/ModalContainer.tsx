@@ -16,6 +16,7 @@ export function ModalContainer(props: ModalContainerProps) {
       presentationStyle="overFullScreen"
       visible={props.isVisible}
       onRequestClose={props.onRequestClose}
+      supportedOrientations={["portrait", "landscape"]}
     >
       <View style={styles.wrapper}>{props.children}</View>
     </Modal>

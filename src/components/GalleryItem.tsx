@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useMemo, useState } from "react";
-import { Dimensions, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import type { GalleryItemProps } from "../types";
 import Animated, {
   interpolate,
@@ -42,15 +42,21 @@ export const GalleryItem = memo(
       width: number;
       height: number;
     }>({
-      width: Dimensions.get("screen").width,
-      height: Dimensions.get("screen").height,
+      width: width,
+      height: height,
     });
     const contentContainerSize = useMemo(() => {
+      if (height > width) {
+        return {
+          width: width,
+          height: (imageDimensions.height * width) / imageDimensions.width,
+        };
+      }
       return {
-        width: width,
-        height: (imageDimensions.height * width) / imageDimensions.width,
+        width: (imageDimensions.width * height) / imageDimensions.height,
+        height: height,
       };
-    }, [width, imageDimensions.height, imageDimensions.width]);
+    }, [width, height, imageDimensions.height, imageDimensions.width]);
 
     const contentCenterX = contentContainerSize.width / 2;
     const contentCenterY = contentContainerSize.height / 2;
@@ -410,12 +416,20 @@ export const GalleryItem = memo(
         if (scale.value > 1) {
           reset();
         } else {
-          const zoomScale = Math.min(
-            contentContainerSize.width > contentContainerSize.height
-              ? (height / contentContainerSize.height) * 1.1
-              : 2.5,
-            maxScale,
-          );
+          const zoomScale =
+            height > width
+              ? Math.min(
+                  contentContainerSize.width > contentContainerSize.height
+                    ? (height / contentContainerSize.height) * 1.1
+                    : 2.5,
+                  maxScale,
+                )
+              : Math.min(
+                  contentContainerSize.height > contentContainerSize.width
+                    ? (width / contentContainerSize.width) * 1.1
+                    : 2.5,
+                  maxScale,
+                );
 
           const edgesX = getScaledEdgesX(zoomScale);
           const edgesY = getScaledEdgesY(zoomScale);
