@@ -102,6 +102,7 @@ export const GalleryPreview = ({
           >
             {images.map((image, i) => {
               const visible = isImageVisible(i);
+
               return (
                 <View key={i} style={{ ...dimensions }}>
                   {visible && (
