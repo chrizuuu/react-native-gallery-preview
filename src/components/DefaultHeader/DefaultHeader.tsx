@@ -12,22 +12,32 @@ export const DefaultHeader = memo(
     currentImageIndex,
     imagesLength,
     isFocused,
+    containerBackgroundColor = "#000",
+    textColor = "#fff",
   }: GalleryHeaderProps) => {
     if (!isFocused) {
       return null;
     }
 
     return (
-      <Animated.View entering={FadeIn} style={styles.container}>
+      <Animated.View
+        entering={FadeIn}
+        style={[
+          styles.container,
+          { backgroundColor: containerBackgroundColor },
+        ]}
+      >
         <SafeAreaView style={styles.safeArea}>
           <View style={styles.wrapper}>
             <View style={styles.closeButtonWrapper}>
               <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-                <Text style={styles.closeButtonIcon}>X</Text>
+                <Text style={[styles.closeButtonIcon, { color: textColor }]}>
+                  X
+                </Text>
               </TouchableOpacity>
             </View>
             <View style={styles.titleWrapper}>
-              <Text style={styles.title}>
+              <Text style={[styles.title, { color: textColor }]}>
                 {currentImageIndex + 1}/{imagesLength}
               </Text>
             </View>
@@ -44,11 +54,9 @@ const styles = StyleSheet.create({
     width: "100%",
     top: 0,
     position: "absolute",
-    backgroundColor: "rgb(0, 0, 0)",
   },
   safeArea: {
     flex: 1,
-    backgroundColor: "rgb(0, 0, 0)",
   },
   wrapper: {
     flexDirection: "row",
@@ -64,7 +72,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     letterSpacing: 2,
-    color: "#fff",
   },
   closeButtonWrapper: {
     flex: 1,
@@ -79,7 +86,6 @@ const styles = StyleSheet.create({
   },
   closeButtonIcon: {
     fontSize: 20,
-    color: "#fff",
     fontWeight: "bold",
   },
   right: {

@@ -74,6 +74,18 @@ export interface GalleryPreviewProps {
    * @default true
    */
   swipeToCloseEnabled?: boolean;
+
+  /**
+   * The background color of the modal, DefaultHeader, and StatusBar.
+   * @default #000
+   */
+  backgroundColor?: string;
+
+  /**
+   * Color of text in the header.
+   * @default #fff
+   */
+  headerTextColor?: string;
 }
 
 export interface GalleryHeaderProps {
@@ -92,6 +104,8 @@ export interface GalleryHeaderProps {
    */
   imagesLength: number;
   isFocused: boolean;
+  containerBackgroundColor?: string;
+  textColor?: string;
 }
 
 export interface GalleryItemProps {

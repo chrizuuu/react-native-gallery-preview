@@ -28,6 +28,8 @@ export const GalleryPreview = ({
   doubleTabEnabled = true,
   pinchEnabled = true,
   swipeToCloseEnabled = true,
+  backgroundColor = "#000",
+  headerTextColor = "#fff",
 }: GalleryPreviewProps) => {
   const dimensions = useWindowDimensions();
 
@@ -90,8 +92,14 @@ export const GalleryPreview = ({
 
   return (
     <ModalContainer isVisible={isVisible} onRequestClose={onRequestClose}>
-      <StatusBar hidden={!isFocused} translucent />
-      <Animated.View style={[wrapperAnimatedStyle, styles.wrapper]}>
+      <StatusBar
+        hidden={!isFocused}
+        translucent
+        backgroundColor={backgroundColor}
+      />
+      <Animated.View
+        style={[wrapperAnimatedStyle, styles.wrapper, { backgroundColor }]}
+      >
         <GestureHandlerRootView style={styles.gestureContainer}>
           <Animated.View
             style={[
@@ -139,6 +147,8 @@ export const GalleryPreview = ({
           imagesLength={images.length}
           currentImageIndex={index}
           onClose={onRequestClose}
+          containerBackgroundColor={backgroundColor}
+          textColor={headerTextColor}
         />
       </Animated.View>
     </ModalContainer>
@@ -146,7 +156,7 @@ export const GalleryPreview = ({
 };
 
 const styles = StyleSheet.create({
-  wrapper: { flex: 1, backgroundColor: "#000" },
+  wrapper: { flex: 1 },
   gestureContainer: { flex: 1 },
   container: { flexDirection: "row" },
 });
