@@ -1,4 +1,4 @@
-import { SpringConfig } from "react-native-reanimated/lib/typescript/reanimated2/animation/springUtils";
+import { SpringConfig } from "react-native-reanimated/lib/typescript/animation/springUtils";
 
 export const MIN_SCALE = 1;
 export const MAX_SCALE = 8;

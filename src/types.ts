@@ -1,6 +1,6 @@
 import type { ImageURISource } from "react-native";
 import type { SharedValue } from "react-native-reanimated";
-import { SpringConfig } from "react-native-reanimated/lib/typescript/reanimated2/animation/springUtils";
+import { SpringConfig } from "react-native-reanimated/lib/typescript/animation/springUtils";
 
 export type ImageItemURI = ImageURISource;
 
