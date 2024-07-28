@@ -6,10 +6,12 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import GalleryPreview, { GalleryHeaderProps } from "../../../src";
 import { images } from "../images";
 import { ExampleWrapper } from "./ExampleWrapper";
 import Animated, { SlideInUp } from "react-native-reanimated";
+import GalleryPreview, {
+  GalleryHeaderProps,
+} from "react-native-gallery-preview";
 
 export const GalleryPreviewWithCustomHeader = () => {
   const [isVisible, setIsVisible] = React.useState(false);

@@ -1,8 +1,10 @@
 import React from "react";
-import GalleryPreview, { useGalleryPreview } from "../../../src";
 import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import { ExampleWrapper } from "./ExampleWrapper";
 import { images } from "../images";
+import GalleryPreview, {
+  useGalleryPreview,
+} from "react-native-gallery-preview";
 
 export const OpenOnSpecificImageExample = () => {
   const { galleryPreviewState, openGalleryPreview, closeGalleryPreview } =
