@@ -4,6 +4,7 @@ import { View, StyleSheet } from "react-native";
 import { BasicGalleryPreview } from "./src/components/BasicGalleryPreview";
 import { GalleryPreviewWithCustomHeader } from "./src/components/GalleryPreviewWIthCustomHeader";
 import { OpenOnSpecificImageExample } from "./src/components/OpenOnSpecificImageExample";
+import { OverlayComponentExample } from "./src/components/OverlayComponentExample";
 
 export default function App() {
   return (
@@ -11,6 +12,7 @@ export default function App() {
       <BasicGalleryPreview />
       <GalleryPreviewWithCustomHeader />
       <OpenOnSpecificImageExample />
+      <OverlayComponentExample />
     </View>
   );
 }

@@ -22,6 +22,7 @@ export const GalleryPreview = ({
   gap = 24,
   simultaneousRenderedImages = 6,
   HeaderComponent = DefaultHeader,
+  OverlayComponent,
   ImageComponent = DefaultImageComponent,
   springConfig = SPRING_CONFIG,
   maxScale = MAX_SCALE,
@@ -45,14 +46,14 @@ export const GalleryPreview = ({
     (newIndex) => {
       runOnJS(setIndex)(newIndex);
     },
-    [currentIndex],
+    [currentIndex]
   );
 
   const wrapperAnimatedStyle = useAnimatedStyle(
     () => ({
       opacity: opacity.value,
     }),
-    [isFocused],
+    [isFocused]
   );
 
   const containerAnimatedStyle = useAnimatedStyle(() => ({
@@ -65,11 +66,11 @@ export const GalleryPreview = ({
       const start = Math.max(0, index - halfVisible);
       const end = Math.min(
         images.length - 1,
-        start + simultaneousRenderedImages - 1,
+        start + simultaneousRenderedImages - 1
       );
       return imageIndex >= start && imageIndex <= end;
     },
-    [images.length, index, simultaneousRenderedImages],
+    [images.length, index, simultaneousRenderedImages]
   );
 
   useEffect(() => {
@@ -142,14 +143,23 @@ export const GalleryPreview = ({
             })}
           </Animated.View>
         </GestureHandlerRootView>
-        <HeaderComponent
-          isFocused={isFocused}
-          imagesLength={images.length}
-          currentImageIndex={index}
-          onClose={onRequestClose}
-          containerBackgroundColor={backgroundColor}
-          textColor={headerTextColor}
-        />
+        {OverlayComponent ? (
+          <OverlayComponent
+            isFocused={isFocused}
+            imagesLength={images.length}
+            currentImageIndex={index}
+            onClose={onRequestClose}
+          />
+        ) : (
+          <HeaderComponent
+            isFocused={isFocused}
+            imagesLength={images.length}
+            currentImageIndex={index}
+            onClose={onRequestClose}
+            containerBackgroundColor={backgroundColor}
+            textColor={headerTextColor}
+          />
+        )}
       </Animated.View>
     </ModalContainer>
   );

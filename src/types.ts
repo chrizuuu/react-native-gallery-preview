@@ -34,13 +34,21 @@ export interface GalleryPreviewProps {
 
   /**
    * Optional header component to be rendered above the image viewer.
+   * @deprecated since version 1.2.0. Use OverlayComponent instead.
    */
   HeaderComponent?: (props: GalleryHeaderProps) => React.ReactNode;
+
+  /**
+  * Optional component to be rendered above the image viewer.
+  * If OverlayComponent is passed, HeaderComponent will not show.
+  */
+  OverlayComponent?: (props: GalleryOverlayProps) => React.ReactNode;
 
   /**
    * Optional custom component to render each image.
    */
   ImageComponent?: (props: GalleryImageComponentProps) => React.JSX.Element;
+
   /**
   Spring config
      * @default
@@ -107,6 +115,8 @@ export interface GalleryHeaderProps {
   containerBackgroundColor?: string;
   textColor?: string;
 }
+
+export type GalleryOverlayProps = GalleryHeaderProps
 
 export interface GalleryItemProps {
   index: number;

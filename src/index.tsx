@@ -4,6 +4,7 @@ import type {
   GalleryPreviewProps,
   GalleryImageComponentProps,
   GalleryHeaderProps,
+  GalleryOverlayProps
 } from "./types";
 
 export default GalleryPreview;
@@ -12,4 +13,5 @@ export type {
   GalleryPreviewProps,
   GalleryImageComponentProps,
   GalleryHeaderProps,
+  GalleryOverlayProps
 };
