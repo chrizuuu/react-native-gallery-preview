@@ -1,11 +1,19 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { ModalContainer } from "./components/ModalContainer/ModalContainer";
-import { StatusBar, StyleSheet, useWindowDimensions, View } from "react-native";
+import {
+  Dimensions,
+  StatusBar,
+  StyleSheet,
+  useWindowDimensions,
+  View,
+} from "react-native";
 import Animated, {
   runOnJS,
   useAnimatedReaction,
   useAnimatedStyle,
   useSharedValue,
+  withDelay,
+  withTiming,
 } from "react-native-reanimated";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { DefaultHeader } from "./components/DefaultHeader/DefaultHeader";
@@ -74,25 +82,29 @@ export const GalleryPreview = ({
   );
 
   useEffect(() => {
-    translateX.value = initialIndex * -(dimensions.width + gap);
     if (isVisible) {
       opacity.value = 1;
       currentIndex.value = initialIndex;
-      translateX.value = initialIndex * -(dimensions.width + gap);
+      translateX.value = initialIndex * -(Dimensions.get("window").width + gap);
       setIsFocused(true);
     }
-  }, [
-    currentIndex,
-    dimensions.width,
-    gap,
-    initialIndex,
-    isVisible,
-    opacity,
-    translateX,
-  ]);
+  }, [currentIndex, gap, initialIndex, isVisible, opacity, translateX]);
+
+  const onOrientationChange = useCallback(() => {
+    translateX.value = withDelay(
+      0,
+      withTiming(index * -(Dimensions.get("window").width + gap), {
+        duration: 0,
+      })
+    );
+  }, [index, gap, translateX]);
 
   return (
-    <ModalContainer isVisible={isVisible} onRequestClose={onRequestClose}>
+    <ModalContainer
+      isVisible={isVisible}
+      onRequestClose={onRequestClose}
+      onOrientationChange={onOrientationChange}
+    >
       <StatusBar
         hidden={!isFocused}
         translucent
