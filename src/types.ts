@@ -33,12 +33,6 @@ export interface GalleryPreviewProps {
   simultaneousRenderedImages?: number;
 
   /**
-   * Optional header component to be rendered above the image viewer.
-   * @deprecated since version 1.2.0. Use OverlayComponent instead.
-   */
-  HeaderComponent?: (props: GalleryHeaderProps) => React.ReactNode;
-
-  /**
    * Optional component to be rendered above the image viewer.
    * If OverlayComponent is passed, HeaderComponent will not show.
    */
@@ -102,7 +96,7 @@ export interface GalleryPreviewProps {
   rtl?: boolean;
 }
 
-export interface GalleryHeaderProps {
+export interface GalleryOverlayProps {
   /**
    * Function to close the image viewer.
    */
@@ -121,8 +115,6 @@ export interface GalleryHeaderProps {
   containerBackgroundColor?: string;
   textColor?: string;
 }
-
-export type GalleryOverlayProps = GalleryHeaderProps;
 
 export interface GalleryItemProps {
   index: number;

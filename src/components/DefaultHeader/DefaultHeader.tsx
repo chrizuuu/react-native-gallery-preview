@@ -4,7 +4,7 @@ import { TouchableOpacity } from "react-native";
 import { StyleSheet } from "react-native";
 import { View } from "react-native";
 import Animated, { FadeIn } from "react-native-reanimated";
-import { GalleryHeaderProps } from "src/types";
+import { GalleryOverlayProps } from "src/types";
 
 export const DefaultHeader = memo(
   ({
@@ -14,7 +14,7 @@ export const DefaultHeader = memo(
     isFocused,
     containerBackgroundColor = "#000",
     textColor = "#fff",
-  }: GalleryHeaderProps) => {
+  }: GalleryOverlayProps) => {
     if (!isFocused) {
       return null;
     }

@@ -29,8 +29,7 @@ export const GalleryPreview = ({
   initialIndex = 0,
   gap = 24,
   simultaneousRenderedImages = 6,
-  HeaderComponent = DefaultHeader,
-  OverlayComponent,
+  OverlayComponent = DefaultHeader,
   ImageComponent = DefaultImageComponent,
   springConfig = SPRING_CONFIG,
   maxScale = MAX_SCALE,
@@ -175,23 +174,15 @@ export const GalleryPreview = ({
             })}
           </Animated.View>
         </GestureHandlerRootView>
-        {OverlayComponent ? (
-          <OverlayComponent
-            isFocused={isFocused}
-            imagesLength={images.length}
-            currentImageIndex={index}
-            onClose={onRequestClose}
-          />
-        ) : (
-          <HeaderComponent
-            isFocused={isFocused}
-            imagesLength={images.length}
-            currentImageIndex={index}
-            onClose={onRequestClose}
-            containerBackgroundColor={backgroundColor}
-            textColor={headerTextColor}
-          />
-        )}
+
+        <OverlayComponent
+          isFocused={isFocused}
+          imagesLength={images.length}
+          currentImageIndex={index}
+          onClose={onRequestClose}
+          containerBackgroundColor={backgroundColor}
+          textColor={headerTextColor}
+        />
       </Animated.View>
     </ModalContainer>
   );
