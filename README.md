@@ -12,17 +12,17 @@
   
   ### Features
   
-  * ⚡ **Smooth Gesture Interactions and Animations:** Experience fluid and responsive animations and gestures for a delightful user interface.
+  * ⚡  **Smooth Gesture Interactions and Animations:** Experience fluid and responsive animations and gestures for a delightful user interface.
   * 🔍 **Double Tap and Pinch to zoom:** Users can effortlessly zoom in and out of images with simple double-tap and pinch gestures
   * 👆 **Pull down to close:** Intuitive pull-down gesture to close the gallery preview, making navigation seamless.
+  *  ↔️ **RTL Support**
   * 📱 **Supports both `iOS` and `Android`:** Fully compatible with both iOS and Android devices, ensuring a consistent experience across platforms.
   * 📱 **Compatible with `Expo`**
-
   ### Get started
   Before you can use GalleryPreview, you need to set up react-native-reanimated and react-native-gesture-handler. Follow the links below for detailed   installation guides:
   
   * [Setting up Reanimated](https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/getting-started/#installation)
-  * [Setting up React Native Gesture Handler](https://docs.swmansion.com/react-native-gesture-handler/docs/fundamentals/installation)
+  * [Setting up React Native Gesture Handler](ht↔️tps://docs.swmansion.com/react-native-gesture-handler/docs/fundamentals/installation)
 
   Once the dependencies are installed, you can add react-native-gallery-preview to your project:
   
@@ -71,8 +71,7 @@ export const App = () => {
 | `images`                   | `ImageItemURI[]`                          | Array of image URIs to be displayed.                                                                                             | -                                                                                                                  |
 | `initialIndex?`             | `number`                                  | The initial index of the image to be displayed when the viewer is opened.                                                       | `0`                                                                                                                |
 | `gap?`                      | `number`                                  | The gap between images in the viewer.                                                                                           | `24`                                                                                                               |
-| `simultaneousRenderedImages?` | `number`                                  | The number of images rendered simultaneously for optimization.                                                                | `6`                                                                                                                |
-| `HeaderComponent?`          | `(props: GalleryHeaderProps) => React.ReactNode` | Optional header component to be rendered above the image viewer.                                                         | -                                                                                                                  |
+| `simultaneousRenderedImages?` | `number`                                  | The number of images rendered simultaneously for optimization.                                                                | `6`                                                                                                                |                                                                                                           |
 | `OverlayComponent?`          | `(props: GalleryOverlayProps) => React.ReactNode` | Optional component to be rendered above the image viewer. If OverlayComponent is passed, HeaderComponent will not show.                                                         | -                                                                                                                  |
 | `ImageComponent?`           | `(props: GalleryImageComponentProps) => React.JSX.Element` | Optional custom component to render each image.                                                                                  | -                                                                                                                  |
 | `springConfig?`             | `SpringConfig`                            | Spring configuration for animations.                                                                                             | `{ damping: 1000, mass: 1, stiffness: 250, restDisplacementThreshold: 0.02, restSpeedThreshold: 4 }`                |
@@ -81,3 +80,4 @@ export const App = () => {
 | `swipeToCloseEnabled?`        | `boolean`                                        | Enable or disable swipe to close functionality.                                                                                  | `true`                                                                                                             |
 | `backgroundColor?`        | `string`                                        | The background color of the modal, DefaultHeader, and StatusBar.                                                                                | `#000`     
 | `headerTextColor?`        | `string`                                        |  Color of text in the header.                                                                                | `#fff`     
+| `rtl?`        | `boolean`                                        |  Enable or disable "Right-To-Left" layout                                                                          | false     
