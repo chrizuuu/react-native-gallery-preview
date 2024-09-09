@@ -13,7 +13,7 @@ import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import { useVector } from "../utils/useVector";
 import { clamp, withRubberClamp } from "../utils/clamp";
 import { DURATION, MIN_SCALE } from "../constants";
-// import { DebugView } from './DebugView.tsx/DebugView';
+// import { DebugView } from "./DebugView/DebugView";
 
 export const GalleryItem = memo(
   ({
@@ -37,6 +37,7 @@ export const GalleryItem = memo(
     doubleTabEnabled,
     swipeToCloseEnabled,
     pinchEnabled,
+    rtl,
   }: GalleryItemProps) => {
     const [imageDimensions, setImageDimensions] = useState<{
       width: number;
@@ -103,9 +104,13 @@ export const GalleryItem = memo(
       (i: number): readonly [number, number] => {
         "worklet";
 
+        if (rtl) {
+          return [(width + gap) * i, width * (i + 1)];
+        }
+
         return [-(width + gap) * i, -width * (i + 1)];
       },
-      [gap, width],
+      [gap, width, rtl],
     );
 
     const getScaledEdgesX = (
@@ -271,13 +276,23 @@ export const GalleryItem = memo(
           : isPanningOut.value;
 
         if (scale.value === 1 && !isPanningOut.value) {
-          rootTranslateX.value = withRubberClamp(
-            initRootTranslateX.value + translationX,
-            { dir0: isFirst ? 0.55 : 1.15, dir1: isLast ? 0.55 : 1.15 },
-            width,
-            getImagePositionX(dataLength - 1)[0],
-            0,
-          );
+          if (rtl) {
+            rootTranslateX.value = withRubberClamp(
+              initRootTranslateX.value + translationX,
+              { dir0: isLast ? 0.55 : 1.15, dir1: isFirst ? 0.55 : 1.15 },
+              width,
+              0,
+              getImagePositionX(dataLength - 1)[0],
+            );
+          } else {
+            rootTranslateX.value = withRubberClamp(
+              initRootTranslateX.value + translationX,
+              { dir0: isFirst ? 0.55 : 1.15, dir1: isLast ? 0.55 : 1.15 },
+              width,
+              getImagePositionX(dataLength - 1)[0],
+              0,
+            );
+          }
           return;
         } else {
           translation.x.value = withRubberClamp(
@@ -348,7 +363,13 @@ export const GalleryItem = memo(
         if (scale.value === 1) {
           const needToTransX = Math.abs(getImagePositionX(1)[0] / 2);
 
-          if ((isFirst && translationX > 0) || (isLast && translationX < 0)) {
+          if (
+            (rtl &&
+              ((isFirst && translationX < 0) ||
+                (isLast && translationX > 0))) ||
+            (!rtl &&
+              ((isFirst && translationX > 0) || (isLast && translationX < 0)))
+          ) {
             rootTranslateX.value = withSpring(
               currentImagePositionX[0],
               springConfig,
@@ -357,8 +378,13 @@ export const GalleryItem = memo(
             Math.abs(velocityX) >= needToTransX ||
             Math.abs(translationX) >= needToTransX
           ) {
-            const newIndex =
-              !isFirst && velocityX >= 0 && translationX > 0
+            const newIndex = rtl
+              ? !isFirst && velocityX <= 0 && translationX < 0
+                ? index - 1
+                : !isLast && velocityX >= 0 && translationX > 0
+                  ? index + 1
+                  : index
+              : !isFirst && velocityX >= 0 && translationX > 0
                 ? index - 1
                 : !isLast && velocityX <= 0 && translationX < 0
                   ? index + 1
@@ -491,11 +517,12 @@ export const GalleryItem = memo(
         </GestureDetector>
         {/* <DebugView
           values={{
-            scale: scale,
+            // scale: scale,
             translationX: translation.x,
-            translationY: translation.y,
+            rootTranslateX,
+            // translationY: translation.y,
             offsetX: offset.x,
-            offsetY: offset.y,
+            // offsetY: offset.y,
             // contentCenterX,
             // contentCenterY,
             // width,

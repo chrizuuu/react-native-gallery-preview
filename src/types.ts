@@ -39,9 +39,9 @@ export interface GalleryPreviewProps {
   HeaderComponent?: (props: GalleryHeaderProps) => React.ReactNode;
 
   /**
-  * Optional component to be rendered above the image viewer.
-  * If OverlayComponent is passed, HeaderComponent will not show.
-  */
+   * Optional component to be rendered above the image viewer.
+   * If OverlayComponent is passed, HeaderComponent will not show.
+   */
   OverlayComponent?: (props: GalleryOverlayProps) => React.ReactNode;
 
   /**
@@ -94,6 +94,12 @@ export interface GalleryPreviewProps {
    * @default #fff
    */
   headerTextColor?: string;
+
+  /**
+   *
+   * @default false
+   */
+  rtl?: boolean;
 }
 
 export interface GalleryHeaderProps {
@@ -116,7 +122,7 @@ export interface GalleryHeaderProps {
   textColor?: string;
 }
 
-export type GalleryOverlayProps = GalleryHeaderProps
+export type GalleryOverlayProps = GalleryHeaderProps;
 
 export interface GalleryItemProps {
   index: number;
@@ -139,6 +145,7 @@ export interface GalleryItemProps {
   doubleTabEnabled: boolean;
   pinchEnabled: boolean;
   swipeToCloseEnabled: boolean;
+  rtl?: boolean;
 }
 
 export interface GalleryImageComponentProps {

@@ -39,13 +39,16 @@ export const GalleryPreview = ({
   swipeToCloseEnabled = true,
   backgroundColor = "#000",
   headerTextColor = "#fff",
+  rtl,
 }: GalleryPreviewProps) => {
   const dimensions = useWindowDimensions();
 
   const [index, setIndex] = useState(initialIndex);
   const [isFocused, setIsFocused] = useState(true);
 
-  const translateX = useSharedValue(initialIndex * -(dimensions.width + gap));
+  const translateX = useSharedValue(
+    initialIndex * -(dimensions.width + gap) * (rtl ? -1 : 1),
+  );
   const opacity = useSharedValue(1);
   const currentIndex = useSharedValue(initialIndex);
 
@@ -54,14 +57,14 @@ export const GalleryPreview = ({
     (newIndex) => {
       runOnJS(setIndex)(newIndex);
     },
-    [currentIndex]
+    [currentIndex],
   );
 
   const wrapperAnimatedStyle = useAnimatedStyle(
     () => ({
       opacity: opacity.value,
     }),
-    [isFocused]
+    [isFocused],
   );
 
   const containerAnimatedStyle = useAnimatedStyle(() => ({
@@ -74,30 +77,46 @@ export const GalleryPreview = ({
       const start = Math.max(0, index - halfVisible);
       const end = Math.min(
         images.length - 1,
-        start + simultaneousRenderedImages - 1
+        start + simultaneousRenderedImages - 1,
       );
       return imageIndex >= start && imageIndex <= end;
     },
-    [images.length, index, simultaneousRenderedImages]
+    [images.length, index, simultaneousRenderedImages],
+  );
+
+  const getImagePositionX = useCallback(
+    (i: number) => {
+      return i * -(Dimensions.get("window").width + gap) * (rtl ? -1 : 1);
+    },
+    [gap, rtl],
   );
 
   useEffect(() => {
     if (isVisible) {
       opacity.value = 1;
       currentIndex.value = initialIndex;
-      translateX.value = initialIndex * -(Dimensions.get("window").width + gap);
+      translateX.value = getImagePositionX(initialIndex);
       setIsFocused(true);
     }
-  }, [currentIndex, gap, initialIndex, isVisible, opacity, translateX]);
+  }, [
+    currentIndex,
+    gap,
+    getImagePositionX,
+    initialIndex,
+    isVisible,
+    opacity,
+    rtl,
+    translateX,
+  ]);
 
   const onOrientationChange = useCallback(() => {
     translateX.value = withDelay(
       0,
-      withTiming(index * -(Dimensions.get("window").width + gap), {
+      withTiming(getImagePositionX(index), {
         duration: 0,
-      })
+      }),
     );
-  }, [index, gap, translateX]);
+  }, [translateX, getImagePositionX, index]);
 
   return (
     <ModalContainer
@@ -117,7 +136,7 @@ export const GalleryPreview = ({
           <Animated.View
             style={[
               containerAnimatedStyle,
-              styles.container,
+              rtl ? styles.rtlContainer : styles.container,
               { columnGap: gap },
             ]}
           >
@@ -148,6 +167,7 @@ export const GalleryPreview = ({
                       swipeToCloseEnabled={swipeToCloseEnabled}
                       pinchEnabled={pinchEnabled}
                       doubleTabEnabled={doubleTabEnabled}
+                      rtl={rtl}
                     />
                   )}
                 </View>
@@ -181,4 +201,5 @@ const styles = StyleSheet.create({
   wrapper: { flex: 1 },
   gestureContainer: { flex: 1 },
   container: { flexDirection: "row" },
+  rtlContainer: { flexDirection: "row-reverse" },
 });
