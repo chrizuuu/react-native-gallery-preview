@@ -5,6 +5,7 @@ import { BasicGalleryPreview } from "./src/components/BasicGalleryPreview";
 import { GalleryPreviewWithCustomHeader } from "./src/components/GalleryPreviewWIthCustomHeader";
 import { OpenOnSpecificImageExample } from "./src/components/OpenOnSpecificImageExample";
 import { OverlayComponentExample } from "./src/components/OverlayComponentExample";
+import { RTLGalleryPreview } from "./src/components/RTLGalleryPreview";
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
       <GalleryPreviewWithCustomHeader />
       <OpenOnSpecificImageExample />
       <OverlayComponentExample />
+      <RTLGalleryPreview />
     </View>
   );
 }

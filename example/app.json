@@ -1,5 +1,9 @@
 {
   "expo": {
+    "extra": {
+      "supportsRTL": true,
+      "forcesRTL": true
+    },
     "name": "example",
     "slug": "example",
     "version": "1.0.0",
