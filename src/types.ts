@@ -131,7 +131,6 @@ export interface GalleryItemProps {
   doubleTabEnabled: boolean;
   pinchEnabled: boolean;
   swipeToCloseEnabled: boolean;
-  rtl?: boolean;
 }
 
 export interface GalleryImageComponentProps {

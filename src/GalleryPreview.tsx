@@ -68,7 +68,7 @@ export const GalleryPreview = ({
   );
 
   const containerAnimatedStyle = useAnimatedStyle(() => ({
-    transform: [{ translateX: translateX.value }],
+    transform: [{ translateX: rtl ? -translateX.value : translateX.value }],
   }));
 
   const isImageVisible = useCallback(
@@ -167,7 +167,6 @@ export const GalleryPreview = ({
                       swipeToCloseEnabled={swipeToCloseEnabled}
                       pinchEnabled={pinchEnabled}
                       doubleTabEnabled={doubleTabEnabled}
-                      rtl={rtl}
                     />
                   )}
                 </View>
