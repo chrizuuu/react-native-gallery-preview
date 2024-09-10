@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { ModalContainer } from "./components/ModalContainer/ModalContainer";
 import {
   Dimensions,
+  I18nManager,
   StatusBar,
   StyleSheet,
   useWindowDimensions,
@@ -38,8 +39,8 @@ export const GalleryPreview = ({
   swipeToCloseEnabled = true,
   backgroundColor = "#000",
   headerTextColor = "#fff",
-  rtl,
 }: GalleryPreviewProps) => {
+  const rtl = I18nManager.isRTL;
   const dimensions = useWindowDimensions();
 
   const [index, setIndex] = useState(initialIndex);
@@ -135,7 +136,7 @@ export const GalleryPreview = ({
           <Animated.View
             style={[
               containerAnimatedStyle,
-              rtl ? styles.rtlContainer : styles.container,
+              styles.container,
               { columnGap: gap },
             ]}
           >
@@ -192,5 +193,4 @@ const styles = StyleSheet.create({
   wrapper: { flex: 1 },
   gestureContainer: { flex: 1 },
   container: { flexDirection: "row" },
-  rtlContainer: { flexDirection: "row-reverse" },
 });

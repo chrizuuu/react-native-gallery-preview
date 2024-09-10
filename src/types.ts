@@ -88,12 +88,6 @@ export interface GalleryPreviewProps {
    * @default #fff
    */
   headerTextColor?: string;
-
-  /**
-   *
-   * @default false
-   */
-  rtl?: boolean;
 }
 
 export interface GalleryOverlayProps {

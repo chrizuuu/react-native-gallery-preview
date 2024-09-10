@@ -80,4 +80,4 @@ export const App = () => {
 | `swipeToCloseEnabled?`        | `boolean`                                        | Enable or disable swipe to close functionality.                                                                                  | `true`                                                                                                             |
 | `backgroundColor?`        | `string`                                        | The background color of the modal, DefaultHeader, and StatusBar.                                                                                | `#000`     
 | `headerTextColor?`        | `string`                                        |  Color of text in the header.                                                                                | `#fff`     
-| `rtl?`        | `boolean`                                        |  Enable or disable "Right-To-Left" layout                                                                          | false     
+
