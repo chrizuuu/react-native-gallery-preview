@@ -6,7 +6,6 @@ interface ModalContainerProps {
   isVisible: boolean;
   children: React.ReactNode;
   onRequestClose: () => void;
-  onOrientationChange: () => void;
 }
 
 export function ModalContainer(props: ModalContainerProps) {
@@ -17,7 +16,6 @@ export function ModalContainer(props: ModalContainerProps) {
       presentationStyle="overFullScreen"
       visible={props.isVisible}
       onRequestClose={props.onRequestClose}
-      onOrientationChange={props.onOrientationChange}
       supportedOrientations={["portrait", "landscape"]}
     >
       <View style={styles.wrapper}>{props.children}</View>

@@ -100,30 +100,28 @@ export const GalleryPreview = ({
     }
   }, [
     currentIndex,
-    gap,
     getImagePositionX,
     initialIndex,
     isVisible,
     opacity,
-    rtl,
     translateX,
   ]);
 
-  const onOrientationChange = useCallback(() => {
-    translateX.value = withDelay(
-      0,
-      withTiming(getImagePositionX(index), {
-        duration: 0,
-      }),
-    );
-  }, [translateX, getImagePositionX, index]);
+  useEffect(() => {
+    const subscription = Dimensions.addEventListener("change", () => {
+      translateX.value = withDelay(
+        0,
+        withTiming(getImagePositionX(currentIndex.value)),
+      );
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, [currentIndex.value, getImagePositionX, translateX]);
 
   return (
-    <ModalContainer
-      isVisible={isVisible}
-      onRequestClose={onRequestClose}
-      onOrientationChange={onOrientationChange}
-    >
+    <ModalContainer isVisible={isVisible} onRequestClose={onRequestClose}>
       <StatusBar
         hidden={!isFocused}
         translucent
