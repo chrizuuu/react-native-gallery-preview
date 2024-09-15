@@ -10,7 +10,7 @@ import { images } from "../images";
 import { ExampleWrapper } from "./ExampleWrapper";
 import Animated, { SlideInUp } from "react-native-reanimated";
 import GalleryPreview, {
-  GalleryHeaderProps,
+  GalleryOverlayProps,
 } from "react-native-gallery-preview";
 
 export const GalleryPreviewWithCustomHeader = () => {
@@ -34,13 +34,13 @@ export const GalleryPreviewWithCustomHeader = () => {
         isVisible={isVisible}
         onRequestClose={handleCloseImageViewer}
         images={images}
-        HeaderComponent={CustomHeader}
+        OverlayComponent={CustomHeader}
       />
     </ExampleWrapper>
   );
 };
 
-const CustomHeader = (props: GalleryHeaderProps) => {
+const CustomHeader = (props: GalleryOverlayProps) => {
   if (!props.isFocused) {
     return null;
   }

@@ -9,8 +9,9 @@ import {
 import { images } from "../images";
 import { ExampleWrapper } from "./ExampleWrapper";
 import Animated, { SlideInDown, SlideInUp } from "react-native-reanimated";
-import { GalleryPreview } from "../../../src/GalleryPreview";
-import { GalleryHeaderProps } from "../../../src/types";
+import GalleryPreview, {
+  GalleryOverlayProps,
+} from "react-native-gallery-preview";
 
 export const OverlayComponentExample = () => {
   const [isVisible, setIsVisible] = React.useState(false);
@@ -39,7 +40,7 @@ export const OverlayComponentExample = () => {
   );
 };
 
-const CustomHeader = (props: GalleryHeaderProps) => {
+const CustomHeader = (props: GalleryOverlayProps) => {
   if (!props.isFocused) {
     return null;
   }

@@ -1,6 +1,6 @@
 import "react-native-gesture-handler";
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { StyleSheet, ScrollView, SafeAreaView } from "react-native";
 import { BasicGalleryPreview } from "./src/components/BasicGalleryPreview";
 import { GalleryPreviewWithCustomHeader } from "./src/components/GalleryPreviewWIthCustomHeader";
 import { OpenOnSpecificImageExample } from "./src/components/OpenOnSpecificImageExample";
@@ -8,20 +8,27 @@ import { OverlayComponentExample } from "./src/components/OverlayComponentExampl
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <BasicGalleryPreview />
-      <GalleryPreviewWithCustomHeader />
-      <OpenOnSpecificImageExample />
-      <OverlayComponentExample />
-    </View>
+    <SafeAreaView style={styles.sfeAreaView}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.container}
+      >
+        <BasicGalleryPreview />
+        <GalleryPreviewWithCustomHeader />
+        <OpenOnSpecificImageExample />
+        <OverlayComponentExample />
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  sfeAreaView: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+  },
+  container: {
+    flexGrow: 1,
     gap: 24,
+    paddingVertical: 24,
   },
 });
