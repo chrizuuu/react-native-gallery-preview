@@ -108,17 +108,18 @@ export const GalleryPreview = ({
   ]);
 
   useEffect(() => {
-    const subscription = Dimensions.addEventListener("change", () => {
+    const subscription = Dimensions.addEventListener("change", ({ window }) => {
+      const { width } = window;
       translateX.value = withDelay(
         0,
-        withTiming(getImagePositionX(currentIndex.value)),
+        withTiming(currentIndex.value * -(width + gap) * (rtl ? -1 : 1)),
       );
     });
 
     return () => {
       subscription.remove();
     };
-  }, [currentIndex.value, getImagePositionX, translateX]);
+  }, [currentIndex.value, gap, rtl, translateX]);
 
   return (
     <ModalContainer isVisible={isVisible} onRequestClose={onRequestClose}>
