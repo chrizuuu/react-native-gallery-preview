@@ -124,7 +124,7 @@ export const GalleryPreview = ({
   return (
     <ModalContainer isVisible={isVisible} onRequestClose={onRequestClose}>
       <StatusBar
-        hidden={!isFocused}
+        hidden={false}
         translucent
         backgroundColor={backgroundColor}
       />
