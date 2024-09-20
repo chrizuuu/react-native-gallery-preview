@@ -3,7 +3,6 @@ import { ModalContainer } from "./components/ModalContainer/ModalContainer";
 import {
   Dimensions,
   I18nManager,
-  StatusBar,
   StyleSheet,
   useWindowDimensions,
   View,
@@ -22,6 +21,7 @@ import type { GalleryPreviewProps } from "./types";
 import { DefaultImageComponent } from "./components/DefaultImageComponent/DefaultImageComponent";
 import { GalleryItem } from "./components/GalleryItem";
 import { SPRING_CONFIG, MAX_SCALE } from "./constants";
+import { GalleryStatusBar } from "./components/GalleryStatusBar/GalleryStatusBar";
 
 export const GalleryPreview = ({
   images,
@@ -123,9 +123,8 @@ export const GalleryPreview = ({
 
   return (
     <ModalContainer isVisible={isVisible} onRequestClose={onRequestClose}>
-      <StatusBar
-        hidden={!isFocused}
-        translucent
+      <GalleryStatusBar
+        isFocused={isFocused}
         backgroundColor={backgroundColor}
       />
       <Animated.View
