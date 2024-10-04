@@ -24,7 +24,6 @@ export const BasicGalleryPreview = () => {
         isVisible={isVisible}
         onRequestClose={handleCloseImageViewer}
         images={images}
-        type="images"
       />
     </ExampleWrapper>
   );

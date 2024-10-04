@@ -83,7 +83,7 @@ interface GalleryPreviewBaseProps {
 }
 
 export interface GalleryPreviewForImageProps extends GalleryPreviewBaseProps {
-  type: "images";
+  type?: "images";
   images: ImageItemURI[];
 
   /**
