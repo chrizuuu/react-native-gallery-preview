@@ -1,7 +1,7 @@
 import React from "react";
 import { images } from "../images";
 import { ExampleWrapper } from "./ExampleWrapper";
-import GalleryPreview from "react-native-gallery-preview";
+import { GalleryPreview } from "../../../src/GalleryPreview";
 
 export const BasicGalleryPreview = () => {
   const [isVisible, setIsVisible] = React.useState(false);

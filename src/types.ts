@@ -1,19 +1,17 @@
+import { PropsWithChildren } from "react";
 import type { ImageURISource } from "react-native";
 import type { SharedValue } from "react-native-reanimated";
 import { SpringConfig } from "react-native-reanimated/lib/typescript/animation/springUtils";
 
 export type ImageItemURI = ImageURISource;
 
-export interface GalleryPreviewProps {
+interface GalleryPreviewBaseProps {
   isVisible: boolean;
 
   /**
    * Function to close the image viewer modal.
    */
   onRequestClose: () => void;
-
-  images: ImageItemURI[];
-
   /**
    * The initial index of the image to be displayed when the viewer is opened.
    * @default 0
@@ -37,12 +35,6 @@ export interface GalleryPreviewProps {
    * If OverlayComponent is passed, HeaderComponent will not show.
    */
   OverlayComponent?: (props: GalleryOverlayProps) => React.ReactNode;
-
-  /**
-   * Optional custom component to render each image.
-   */
-  ImageComponent?: (props: GalleryImageComponentProps) => React.JSX.Element;
-
   /**
   Spring config
      * @default
@@ -90,6 +82,26 @@ export interface GalleryPreviewProps {
   headerTextColor?: string;
 }
 
+export interface GalleryPreviewForImageProps extends GalleryPreviewBaseProps {
+  type?: "images";
+  images: ImageItemURI[];
+
+  /**
+   * Optional custom component to render each image.
+   */
+  ImageComponent?: (props: GalleryImageComponentProps) => React.JSX.Element;
+}
+
+export interface GalleryPreviewForChildrenProps
+  extends GalleryPreviewBaseProps {
+  type: "children";
+  children: React.ReactNode;
+}
+
+export type GalleryPreviewProps =
+  | GalleryPreviewForImageProps
+  | GalleryPreviewForChildrenProps;
+
 export interface GalleryOverlayProps {
   /**
    * Function to close the image viewer.
@@ -110,10 +122,9 @@ export interface GalleryOverlayProps {
   textColor?: string;
 }
 
-export interface GalleryItemProps {
+interface GalleryItemBaseProps {
   index: number;
   currentIndex: SharedValue<number>;
-  item: ImageItemURI;
   isFirst: boolean;
   isLast: boolean;
   rootTranslateX: SharedValue<number>;
@@ -125,7 +136,6 @@ export interface GalleryItemProps {
   onClose: () => void;
   setIsFocused: (val: boolean) => void;
   isFocused: boolean;
-  ImageComponent: (props: GalleryImageComponentProps) => React.JSX.Element;
   springConfig: SpringConfig;
   maxScale: number;
   doubleTabEnabled: boolean;
@@ -147,3 +157,12 @@ export interface GalleryImageComponentProps {
     height: number;
   };
 }
+
+export interface GalleryImageItemProps extends GalleryItemBaseProps {
+  item: ImageItemURI;
+  ImageComponent: (props: GalleryImageComponentProps) => React.JSX.Element;
+}
+
+export interface GalleryChildrenItemProps
+  extends GalleryItemBaseProps,
+    PropsWithChildren {}

@@ -1,23 +1,54 @@
-import React, { memo, useCallback, useMemo, useState } from "react";
+import React, { memo, PropsWithChildren, useCallback } from "react";
 import { StyleSheet, View } from "react-native";
-import type { GalleryItemProps } from "../types";
 import Animated, {
+  clamp,
   interpolate,
   runOnJS,
+  SharedValue,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
   withTiming,
 } from "react-native-reanimated";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
-import { useVector } from "../utils/useVector";
-import { clamp, withRubberClamp } from "../utils/clamp";
-import { DURATION, MIN_SCALE } from "../constants";
+import { DURATION, MIN_SCALE } from "../../constants";
+import { withRubberClamp } from "../../utils/clamp";
+import { useVector } from "../../utils/useVector";
+import { SpringConfig } from "react-native-reanimated/lib/typescript/animation/springUtils";
+
 // import { DebugView } from "./DebugView/DebugView";
 
-export const GalleryItem = memo(
+interface GestureItemComponentProps extends PropsWithChildren {
+  index: number;
+  currentIndex: SharedValue<number>;
+  isFirst: boolean;
+  isLast: boolean;
+  rootTranslateX: SharedValue<number>;
+  opacity: SharedValue<number>;
+  width: number;
+  height: number;
+  dataLength: number;
+  gap: number;
+  onClose: () => void;
+  setIsFocused: (val: boolean) => void;
+  isFocused: boolean;
+  springConfig: SpringConfig;
+  maxScale: number;
+  doubleTabEnabled: boolean;
+  pinchEnabled: boolean;
+  swipeToCloseEnabled: boolean;
+  rtl?: boolean;
+  contentCenterX: number;
+  contentCenterY: number;
+  contentContainerSize: {
+    width: number;
+    height: number;
+  };
+}
+
+export const GestureItemComponent = memo(
   ({
-    item,
+    children,
     index,
     currentIndex,
     isFirst,
@@ -31,37 +62,16 @@ export const GalleryItem = memo(
     onClose,
     setIsFocused,
     isFocused,
-    ImageComponent,
     maxScale,
     springConfig,
     doubleTabEnabled,
     swipeToCloseEnabled,
     pinchEnabled,
     rtl,
-  }: GalleryItemProps) => {
-    const [imageDimensions, setImageDimensions] = useState<{
-      width: number;
-      height: number;
-    }>({
-      width: width,
-      height: height,
-    });
-    const contentContainerSize = useMemo(() => {
-      if (height > width) {
-        return {
-          width: width,
-          height: (imageDimensions.height * width) / imageDimensions.width,
-        };
-      }
-      return {
-        width: (imageDimensions.width * height) / imageDimensions.height,
-        height: height,
-      };
-    }, [width, height, imageDimensions.height, imageDimensions.width]);
-
-    const contentCenterX = contentContainerSize.width / 2;
-    const contentCenterY = contentContainerSize.height / 2;
-
+    contentCenterX,
+    contentCenterY,
+    contentContainerSize,
+  }: GestureItemComponentProps) => {
     const initRootTranslateX = useSharedValue(0);
 
     const offset = useVector(0, 0);
@@ -500,18 +510,7 @@ export const GalleryItem = memo(
         <GestureDetector gesture={gestures}>
           <View style={styles.container}>
             <Animated.View style={animationContentContainerStyle}>
-              <GestureDetector gesture={doubleTap}>
-                <ImageComponent
-                  source={item}
-                  onLoad={(imageWidth, imageHeight) => {
-                    setImageDimensions({
-                      width: imageWidth,
-                      height: imageHeight,
-                    });
-                  }}
-                  style={contentContainerSize}
-                />
-              </GestureDetector>
+              <GestureDetector gesture={doubleTap}>{children}</GestureDetector>
             </Animated.View>
           </View>
         </GestureDetector>

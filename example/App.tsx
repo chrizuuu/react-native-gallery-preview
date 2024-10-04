@@ -5,6 +5,7 @@ import { BasicGalleryPreview } from "./src/components/BasicGalleryPreview";
 import { GalleryPreviewWithCustomHeader } from "./src/components/GalleryPreviewWIthCustomHeader";
 import { OpenOnSpecificImageExample } from "./src/components/OpenOnSpecificImageExample";
 import { OverlayComponentExample } from "./src/components/OverlayComponentExample";
+import { ChildrenGalleryPreview } from "./src/components/ChildrenGalleryPreview/ChildrenGalleryPreview";
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
         <GalleryPreviewWithCustomHeader />
         <OpenOnSpecificImageExample />
         <OverlayComponentExample />
+        <ChildrenGalleryPreview />
       </ScrollView>
     </SafeAreaView>
   );
