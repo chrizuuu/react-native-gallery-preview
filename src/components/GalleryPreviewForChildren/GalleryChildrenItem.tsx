@@ -15,6 +15,7 @@ export const GalleryChildrenItem = memo(
     const onChildrenLayout = useCallback(
       (event: LayoutChangeEvent) => {
         const { layout } = event.nativeEvent;
+
         const center = {
           x: layout.x + width / 2,
           y: layout.y + height / 2,
@@ -49,7 +50,6 @@ export const GalleryChildrenItem = memo(
 
 const styles = StyleSheet.create({
   children: {
-    flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },

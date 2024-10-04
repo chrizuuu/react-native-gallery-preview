@@ -73,7 +73,7 @@ export const GalleryPreviewForChildren = ({
     return children ? React.Children.toArray(children) : [];
   }, [children]);
 
-  const isImageVisible = useCallback(
+  const isChildrenVisible = useCallback(
     (imageIndex: number): boolean => {
       const halfVisible = Math.floor(simultaneousRenderedImages / 2);
       const start = Math.max(0, index - halfVisible);
@@ -123,8 +123,6 @@ export const GalleryPreviewForChildren = ({
     };
   }, [currentIndex.value, gap, rtl, translateX]);
 
-  console.log(listOfChildren, children);
-
   return (
     <ModalContainer isVisible={isVisible} onRequestClose={onRequestClose}>
       <GalleryStatusBar
@@ -143,7 +141,7 @@ export const GalleryPreviewForChildren = ({
             ]}
           >
             {listOfChildren.map((child, i) => {
-              const visible = isImageVisible(i);
+              const visible = isChildrenVisible(i);
 
               return (
                 <View key={i} style={{ ...dimensions }}>

@@ -16,7 +16,6 @@ export const VideoItem = () => {
     <VideoView
       style={[styles.video, { width }]}
       player={player}
-      allowsFullscreen
       pointerEvents="none"
     />
   );
