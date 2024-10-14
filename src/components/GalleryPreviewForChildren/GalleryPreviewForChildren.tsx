@@ -18,7 +18,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { GalleryPreviewForChildrenProps } from "../../types";
 import { SPRING_CONFIG, MAX_SCALE } from "../../constants";
 import { DefaultHeader } from "../DefaultHeader/DefaultHeader";
-import { GalleryStatusBar } from "../GalleryStatusBar/GalleryStatusBar.ios";
+import { GalleryStatusBar } from "../GalleryStatusBar/GalleryStatusBar";
 import { ModalContainer } from "../ModalContainer/ModalContainer";
 import { GalleryChildrenItem } from "./GalleryChildrenItem";
 
