@@ -1,4 +1,36 @@
 
+<div align="right">
+  <details>
+    <summary >🌐 Language</summary>
+    <div>
+      <div align="center">
+        <a href="https://openaitx.github.io/view.html?user=chrizuuu&project=react-native-gallery-preview&lang=en">English</a>
+        | <a href="https://openaitx.github.io/view.html?user=chrizuuu&project=react-native-gallery-preview&lang=zh-CN">简体中文</a>
+        | <a href="https://openaitx.github.io/view.html?user=chrizuuu&project=react-native-gallery-preview&lang=zh-TW">繁體中文</a>
+        | <a href="https://openaitx.github.io/view.html?user=chrizuuu&project=react-native-gallery-preview&lang=ja">日本語</a>
+        | <a href="https://openaitx.github.io/view.html?user=chrizuuu&project=react-native-gallery-preview&lang=ko">한국어</a>
+        | <a href="https://openaitx.github.io/view.html?user=chrizuuu&project=react-native-gallery-preview&lang=hi">हिन्दी</a>
+        | <a href="https://openaitx.github.io/view.html?user=chrizuuu&project=react-native-gallery-preview&lang=th">ไทย</a>
+        | <a href="https://openaitx.github.io/view.html?user=chrizuuu&project=react-native-gallery-preview&lang=fr">Français</a>
+        | <a href="https://openaitx.github.io/view.html?user=chrizuuu&project=react-native-gallery-preview&lang=de">Deutsch</a>
+        | <a href="https://openaitx.github.io/view.html?user=chrizuuu&project=react-native-gallery-preview&lang=es">Español</a>
+        | <a href="https://openaitx.github.io/view.html?user=chrizuuu&project=react-native-gallery-preview&lang=it">Italiano</a>
+        | <a href="https://openaitx.github.io/view.html?user=chrizuuu&project=react-native-gallery-preview&lang=ru">Русский</a>
+        | <a href="https://openaitx.github.io/view.html?user=chrizuuu&project=react-native-gallery-preview&lang=pt">Português</a>
+        | <a href="https://openaitx.github.io/view.html?user=chrizuuu&project=react-native-gallery-preview&lang=nl">Nederlands</a>
+        | <a href="https://openaitx.github.io/view.html?user=chrizuuu&project=react-native-gallery-preview&lang=pl">Polski</a>
+        | <a href="https://openaitx.github.io/view.html?user=chrizuuu&project=react-native-gallery-preview&lang=ar">العربية</a>
+        | <a href="https://openaitx.github.io/view.html?user=chrizuuu&project=react-native-gallery-preview&lang=fa">فارسی</a>
+        | <a href="https://openaitx.github.io/view.html?user=chrizuuu&project=react-native-gallery-preview&lang=tr">Türkçe</a>
+        | <a href="https://openaitx.github.io/view.html?user=chrizuuu&project=react-native-gallery-preview&lang=vi">Tiếng Việt</a>
+        | <a href="https://openaitx.github.io/view.html?user=chrizuuu&project=react-native-gallery-preview&lang=id">Bahasa Indonesia</a>
+        | <a href="https://openaitx.github.io/view.html?user=chrizuuu&project=react-native-gallery-preview&lang=as">অসমীয়া</
+      </div>
+    </div>
+  </details>
+</div>
+
+
 
 
   
