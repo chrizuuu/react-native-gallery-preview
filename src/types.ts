@@ -1,7 +1,6 @@
 import { PropsWithChildren } from "react";
 import type { ImageURISource } from "react-native";
-import type { SharedValue } from "react-native-reanimated";
-import { SpringConfig } from "react-native-reanimated/lib/typescript/animation/springUtils";
+import type { SharedValue, WithSpringConfig } from "react-native-reanimated";
 
 export type ImageItemURI = ImageURISource;
 
@@ -42,11 +41,9 @@ interface GalleryPreviewBaseProps {
         damping: 1000,
         mass: 1,
         stiffness: 250,
-        restDisplacementThreshold: 0.02,
-        restSpeedThreshold: 4,
       }
      */
-  springConfig?: SpringConfig;
+  springConfig?: WithSpringConfig;
 
   /**
    * The maximum scale of the image.
@@ -136,7 +133,7 @@ interface GalleryItemBaseProps {
   onClose: () => void;
   setIsFocused: (val: boolean) => void;
   isFocused: boolean;
-  springConfig: SpringConfig;
+  springConfig: WithSpringConfig;
   maxScale: number;
   doubleTabEnabled: boolean;
   pinchEnabled: boolean;

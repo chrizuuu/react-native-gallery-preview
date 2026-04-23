@@ -3,18 +3,18 @@ import { StyleSheet, View } from "react-native";
 import Animated, {
   clamp,
   interpolate,
-  runOnJS,
   SharedValue,
+  WithSpringConfig,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
   withTiming,
 } from "react-native-reanimated";
+import { scheduleOnRN } from "react-native-worklets";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import { DURATION, MIN_SCALE } from "../../constants";
 import { withRubberClamp } from "../../utils/clamp";
 import { useVector } from "../../utils/useVector";
-import { SpringConfig } from "react-native-reanimated/lib/typescript/animation/springUtils";
 
 // import { DebugView } from "./DebugView/DebugView";
 
@@ -32,7 +32,7 @@ interface GestureItemComponentProps extends PropsWithChildren {
   onClose: () => void;
   setIsFocused: (val: boolean) => void;
   isFocused: boolean;
-  springConfig: SpringConfig;
+  springConfig: WithSpringConfig;
   maxScale: number;
   doubleTabEnabled: boolean;
   pinchEnabled: boolean;
@@ -106,7 +106,7 @@ export const GestureItemComponent = memo(
       translation.y.value = 0;
 
       if (withUnFocus) {
-        runOnJS(setIsFocused)(false);
+        scheduleOnRN(setIsFocused, false);
       }
     };
 
@@ -321,7 +321,7 @@ export const GestureItemComponent = memo(
             velocityY > height
           ) {
             shouldClose.value = true;
-            runOnJS(onClose)();
+            scheduleOnRN(onClose);
             return;
           }
 
@@ -358,7 +358,7 @@ export const GestureItemComponent = memo(
       })
       .onEnd((event) => {
         if (shouldClose.value) {
-          runOnJS(onClose)();
+          scheduleOnRN(onClose);
           return;
         } else if (isPanningOut.value) {
           reset();
@@ -497,7 +497,7 @@ export const GestureItemComponent = memo(
       .numberOfTaps(1)
       .requireExternalGestureToFail(doubleTap)
       .onEnd(() => {
-        runOnJS(setIsFocused)(!isFocused);
+        scheduleOnRN(setIsFocused, !isFocused);
       });
 
     const gestures = Gesture.Exclusive(

@@ -7,13 +7,13 @@ import {
   View,
 } from "react-native";
 import Animated, {
-  runOnJS,
   useAnimatedReaction,
   useAnimatedStyle,
   useSharedValue,
   withDelay,
   withTiming,
 } from "react-native-reanimated";
+import { scheduleOnRN } from "react-native-worklets";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { GalleryPreviewForImageProps } from "../../types";
 import { SPRING_CONFIG, MAX_SCALE } from "../../constants";
@@ -55,7 +55,7 @@ export const GalleryPreviewForImage = ({
   useAnimatedReaction(
     () => currentIndex.value,
     (newIndex) => {
-      runOnJS(setIndex)(newIndex);
+      scheduleOnRN(setIndex, newIndex);
     },
     [currentIndex],
   );
