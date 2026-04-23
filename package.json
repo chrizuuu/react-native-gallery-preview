@@ -1,6 +1,6 @@
 {
   "name": "react-native-gallery-preview",
-  "version": "1.3.4",
+  "version": "2.0.0-beta.0",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/index.d.ts",
@@ -113,7 +113,8 @@
       "publish": true
     },
     "github": {
-      "release": true
+      "release": true,
+      "preRelease": true
     }
   }
 }
