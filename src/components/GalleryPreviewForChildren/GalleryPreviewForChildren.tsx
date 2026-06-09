@@ -36,6 +36,7 @@ export const GalleryPreviewForChildren = ({
   swipeToCloseEnabled = true,
   backgroundColor = "#000",
   headerTextColor = "#fff",
+  statusBarProps,
   children,
 }: GalleryPreviewForChildrenProps) => {
   const rtl = I18nManager.isRTL;
@@ -128,6 +129,7 @@ export const GalleryPreviewForChildren = ({
       <GalleryStatusBar
         isFocused={isFocused}
         backgroundColor={backgroundColor}
+        statusBarProps={statusBarProps}
       />
       <Animated.View
         style={[wrapperAnimatedStyle, styles.wrapper, { backgroundColor }]}

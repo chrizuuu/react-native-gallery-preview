@@ -37,6 +37,7 @@ export const GalleryPreviewForImage = ({
   swipeToCloseEnabled = true,
   backgroundColor = "#000",
   headerTextColor = "#fff",
+  statusBarProps,
   images,
   ImageComponent = DefaultImageComponent,
 }: GalleryPreviewForImageProps) => {
@@ -126,6 +127,7 @@ export const GalleryPreviewForImage = ({
       <GalleryStatusBar
         isFocused={isFocused}
         backgroundColor={backgroundColor}
+        statusBarProps={statusBarProps}
       />
       <Animated.View
         style={[wrapperAnimatedStyle, styles.wrapper, { backgroundColor }]}

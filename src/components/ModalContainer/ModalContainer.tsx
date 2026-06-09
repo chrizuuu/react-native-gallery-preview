@@ -12,6 +12,8 @@ export function ModalContainer(props: ModalContainerProps) {
   return (
     <Modal
       transparent
+      statusBarTranslucent
+      navigationBarTranslucent
       animationType={props.isVisible ? "fade" : "none"}
       presentationStyle="overFullScreen"
       visible={props.isVisible}

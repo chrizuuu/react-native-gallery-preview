@@ -1,5 +1,5 @@
 import { PropsWithChildren } from "react";
-import type { ImageURISource } from "react-native";
+import type { ImageURISource, StatusBarProps } from "react-native";
 import type { SharedValue } from "react-native-reanimated";
 import { SpringConfig } from "react-native-reanimated/lib/typescript/animation/springUtils";
 
@@ -80,6 +80,14 @@ interface GalleryPreviewBaseProps {
    * @default #fff
    */
   headerTextColor?: string;
+
+  /**
+   * Props forwarded to the StatusBar rendered inside the gallery modal.
+   * They are spread over the library defaults, so you can control
+   * `translucent`, `barStyle`, `backgroundColor`, `hidden`, `animated`, etc.
+   * When omitted, the previous behavior is preserved (translucent status bar).
+   */
+  statusBarProps?: StatusBarProps;
 }
 
 export interface GalleryPreviewForImageProps extends GalleryPreviewBaseProps {

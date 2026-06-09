@@ -8,6 +8,7 @@ export const GalleryStatusBar = (props: GalleryStatusBarProps) => {
       hidden={false}
       translucent
       backgroundColor={props.backgroundColor}
+      {...props.statusBarProps}
     />
   );
 };
