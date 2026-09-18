@@ -1,3 +1,5 @@
+import { Image } from "react-native";
+
 export const images = [
   {
     uri: "https://images.unsplash.com/photo-1501183007986-d0d080b147f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
@@ -17,4 +19,6 @@ export const images = [
   {
     uri: "https://images.unsplash.com/photo-1509514026798-53d40bf1aa09?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
   },
+  Image.resolveAssetSource(require("../assets/gallery-screenshot.png")),
+  Image.resolveAssetSource(require("../assets/example-screen-screenshot.png")),
 ];

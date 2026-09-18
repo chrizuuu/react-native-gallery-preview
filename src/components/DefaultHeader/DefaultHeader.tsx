@@ -1,10 +1,11 @@
 import React, { memo } from "react";
-import { SafeAreaView, Text } from "react-native";
+import { Text } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { TouchableOpacity } from "react-native";
 import { StyleSheet } from "react-native";
 import { View } from "react-native";
 import Animated, { FadeIn } from "react-native-reanimated";
-import { GalleryOverlayProps } from "src/types";
+import type { GalleryOverlayProps } from "../../types";
 
 export const DefaultHeader = memo(
   ({
@@ -27,7 +28,7 @@ export const DefaultHeader = memo(
           { backgroundColor: containerBackgroundColor },
         ]}
       >
-        <SafeAreaView style={styles.safeArea}>
+        <SafeAreaView style={styles.safeArea} edges={["top", "left", "right"]}>
           <View style={styles.wrapper}>
             <View style={styles.closeButtonWrapper}>
               <TouchableOpacity onPress={onClose} style={styles.closeButton}>

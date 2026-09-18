@@ -1,6 +1,6 @@
 import React from "react";
 import { Image, ImageStyle, StyleProp } from "react-native";
-import { ImageItemURI } from "src/types";
+import type { ImageItemURI } from "../../types";
 
 interface ImageComponentProps {
   source: ImageItemURI;

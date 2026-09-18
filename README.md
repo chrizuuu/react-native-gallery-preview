@@ -19,10 +19,13 @@
   * 📱 **Supports both `iOS` and `Android`:** Fully compatible with both iOS and Android devices, ensuring a consistent experience across platforms.
   * 📱 **Compatible with `Expo`**
   ### Get started
-  Before you can use GalleryPreview, you need to set up react-native-reanimated and react-native-gesture-handler. Follow the links below for detailed   installation guides:
+  Before you can use GalleryPreview, you need to set up react-native-reanimated, react-native-gesture-handler, and react-native-safe-area-context. Follow the links below for detailed installation guides:
   
   * [Setting up Reanimated](https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/getting-started/#installation)
   * [Setting up React Native Gesture Handler](ht↔️tps://docs.swmansion.com/react-native-gesture-handler/docs/fundamentals/installation)
+  * [Setting up React Native Safe Area Context](https://appandflow.github.io/react-native-safe-area-context/)
+
+  The gallery provides its own `SafeAreaProvider` inside the modal. Custom overlays can use `SafeAreaView` from `react-native-safe-area-context`, with top/side edges for headers and bottom/side edges for footers.
 
   Once the dependencies are installed, you can add react-native-gallery-preview to your project:
   
@@ -80,4 +83,3 @@ export const App = () => {
 | `swipeToCloseEnabled?`        | `boolean`                                        | Enable or disable swipe to close functionality.                                                                                  | `true`                                                                                                             |
 | `backgroundColor?`        | `string`                                        | The background color of the modal, DefaultHeader, and StatusBar.                                                                                | `#000`     
 | `headerTextColor?`        | `string`                                        |  Color of text in the header.                                                                                | `#fff`     
-

@@ -1,11 +1,6 @@
 import React from "react";
-import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "../images";
 import { ExampleWrapper } from "./ExampleWrapper";
 import Animated, { SlideInDown, SlideInUp } from "react-native-reanimated";
@@ -48,7 +43,7 @@ const CustomHeader = (props: GalleryOverlayProps) => {
   return (
     <>
       <Animated.View entering={SlideInUp} style={styles.headerContainer}>
-        <SafeAreaView style={styles.safeArea}>
+        <SafeAreaView style={styles.safeArea} edges={["top", "left", "right"]}>
           <View style={styles.wrapper}>
             <Text style={styles.title}>
               Preview: {props.currentImageIndex + 1}/{props.imagesLength}
@@ -64,7 +59,7 @@ const CustomHeader = (props: GalleryOverlayProps) => {
       </Animated.View>
 
       <Animated.View entering={SlideInDown} style={styles.footerWrapper}>
-        <SafeAreaView style={styles.footer}>
+        <SafeAreaView style={styles.footer} edges={["bottom", "left", "right"]}>
           <Text style={styles.footerText}>Gallery preview</Text>
         </SafeAreaView>
       </Animated.View>

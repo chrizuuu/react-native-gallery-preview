@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { GalleryPreviewProps } from "src/types";
+import type { GalleryPreviewProps } from "../types";
 
 type StateType = Pick<GalleryPreviewProps, "isVisible" | "initialIndex">;
 

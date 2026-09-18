@@ -1,5 +1,6 @@
 import React from "react";
-import { SafeAreaView, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { SharedValue } from "react-native-reanimated";
 import { ReText } from "./ReText";
 
@@ -9,7 +10,7 @@ interface DebugViewProps {
 
 export const DebugView = ({ values }: DebugViewProps) => {
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={["bottom", "left", "right"]}>
       {Object.keys(values).map((key) => {
         const value = values[key];
         if (value === undefined) return null;

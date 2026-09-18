@@ -24,7 +24,7 @@ export const OpenOnSpecificImageExample = () => {
       <GalleryPreview
         images={images}
         isVisible={galleryPreviewState.isVisible}
-        initialIndex={galleryPreviewState.initIndex}
+        initialIndex={galleryPreviewState.initialIndex}
         onRequestClose={closeGalleryPreview}
       />
     </ExampleWrapper>

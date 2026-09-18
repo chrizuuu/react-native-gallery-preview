@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet } from "react-native";
-import { Modal, View } from "react-native";
+import { Modal } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 interface ModalContainerProps {
   isVisible: boolean;
@@ -18,7 +19,9 @@ export function ModalContainer(props: ModalContainerProps) {
       onRequestClose={props.onRequestClose}
       supportedOrientations={["portrait", "landscape"]}
     >
-      <View style={styles.wrapper}>{props.children}</View>
+      <SafeAreaProvider style={styles.wrapper}>
+        {props.children}
+      </SafeAreaProvider>
     </Modal>
   );
 }

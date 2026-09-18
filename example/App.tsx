@@ -1,6 +1,11 @@
 import "react-native-gesture-handler";
 import React from "react";
-import { StyleSheet, ScrollView, SafeAreaView } from "react-native";
+import { StyleSheet, ScrollView } from "react-native";
+import {
+  SafeAreaProvider,
+  SafeAreaView,
+  initialWindowMetrics,
+} from "react-native-safe-area-context";
 import { BasicGalleryPreview } from "./src/components/BasicGalleryPreview";
 import { GalleryPreviewWithCustomHeader } from "./src/components/GalleryPreviewWIthCustomHeader";
 import { OpenOnSpecificImageExample } from "./src/components/OpenOnSpecificImageExample";
@@ -9,18 +14,20 @@ import { ChildrenGalleryPreview } from "./src/components/ChildrenGalleryPreview/
 
 export default function App() {
   return (
-    <SafeAreaView style={styles.sfeAreaView}>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.container}
-      >
-        <BasicGalleryPreview />
-        <GalleryPreviewWithCustomHeader />
-        <OpenOnSpecificImageExample />
-        <OverlayComponentExample />
-        <ChildrenGalleryPreview />
-      </ScrollView>
-    </SafeAreaView>
+    <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+      <SafeAreaView style={styles.sfeAreaView}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.container}
+        >
+          <BasicGalleryPreview />
+          <GalleryPreviewWithCustomHeader />
+          <OpenOnSpecificImageExample />
+          <OverlayComponentExample />
+          <ChildrenGalleryPreview />
+        </ScrollView>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 

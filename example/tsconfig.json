@@ -1,4 +1,8 @@
 {
-  "compilerOptions": {},
+  "compilerOptions": {
+    "paths": {
+      "react-native-gallery-preview": ["../src/index.tsx"]
+    }
+  },
   "extends": "expo/tsconfig.base"
 }

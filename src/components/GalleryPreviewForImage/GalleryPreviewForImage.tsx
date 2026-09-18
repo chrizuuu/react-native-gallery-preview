@@ -5,6 +5,7 @@ import {
   StyleSheet,
   useWindowDimensions,
   View,
+  type ScaledSize,
 } from "react-native";
 import Animated, {
   useAnimatedReaction,
@@ -108,18 +109,21 @@ export const GalleryPreviewForImage = ({
   ]);
 
   useEffect(() => {
-    const subscription = Dimensions.addEventListener("change", ({ window }) => {
-      const { width } = window;
-      translateX.value = withDelay(
-        0,
-        withTiming(currentIndex.value * -(width + gap) * (rtl ? -1 : 1)),
-      );
-    });
+    const subscription = Dimensions.addEventListener(
+      "change",
+      ({ window }: { window: ScaledSize }) => {
+        const { width } = window;
+        translateX.value = withDelay(
+          0,
+          withTiming(currentIndex.value * -(width + gap) * (rtl ? -1 : 1)),
+        );
+      },
+    );
 
     return () => {
       subscription.remove();
     };
-  }, [currentIndex.value, gap, rtl, translateX]);
+  }, [currentIndex, gap, rtl, translateX]);
 
   return (
     <ModalContainer isVisible={isVisible} onRequestClose={onRequestClose}>
