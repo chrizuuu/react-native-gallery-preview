@@ -26,6 +26,7 @@ import { GalleryChildrenItem } from "./GalleryChildrenItem";
 export const GalleryPreviewForChildren = ({
   isVisible,
   onRequestClose,
+  onChange,
   initialIndex = 0,
   gap = 24,
   simultaneousRenderedImages = 6,
@@ -53,10 +54,13 @@ export const GalleryPreviewForChildren = ({
 
   useAnimatedReaction(
     () => currentIndex.value,
-    (newIndex) => {
+    (newIndex, previousIndex) => {
       scheduleOnRN(setIndex, newIndex);
+      if (onChange && previousIndex !== null && newIndex !== previousIndex) {
+        scheduleOnRN(onChange, newIndex);
+      }
     },
-    [currentIndex],
+    [currentIndex, onChange],
   );
 
   const wrapperAnimatedStyle = useAnimatedStyle(

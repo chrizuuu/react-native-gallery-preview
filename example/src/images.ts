@@ -21,4 +21,5 @@ export const images = [
   },
   Image.resolveAssetSource(require("../assets/gallery-screenshot.png")),
   Image.resolveAssetSource(require("../assets/example-screen-screenshot.png")),
+  Image.resolveAssetSource(require("../assets/example-screenshot.png")),
 ];

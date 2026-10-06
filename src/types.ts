@@ -2,7 +2,14 @@ import { PropsWithChildren } from "react";
 import type { ImageURISource } from "react-native";
 import type { SharedValue, WithSpringConfig } from "react-native-reanimated";
 
-export type ImageItemURI = ImageURISource;
+export type ImageItemURI = ImageURISource & {
+  /**
+   * Show a loading placeholder instead of the image.
+   * A missing or empty uri also shows the loading placeholder.
+   * @default false
+   */
+  isLoading?: boolean;
+};
 
 interface GalleryPreviewBaseProps {
   isVisible: boolean;
@@ -11,6 +18,11 @@ interface GalleryPreviewBaseProps {
    * Function to close the image viewer modal.
    */
   onRequestClose: () => void;
+  /**
+   * Called with the zero-based index when the current item changes.
+   * Available in both images and children modes. Not called on initial render.
+   */
+  onChange?: (index: number) => void;
   /**
    * The initial index of the image to be displayed when the viewer is opened.
    * @default 0
@@ -87,6 +99,12 @@ export interface GalleryPreviewForImageProps extends GalleryPreviewBaseProps {
    * Optional custom component to render each image.
    */
   ImageComponent?: (props: GalleryImageComponentProps) => React.JSX.Element;
+
+  /**
+   * Optional custom loading component for items with isLoading or no uri.
+   * @default A centered ActivityIndicator
+   */
+  LoadingComponent?: (props: GalleryLoadingComponentProps) => React.ReactNode;
 }
 
 export interface GalleryPreviewForChildrenProps
@@ -158,6 +176,14 @@ export interface GalleryImageComponentProps {
 export interface GalleryImageItemProps extends GalleryItemBaseProps {
   item: ImageItemURI;
   ImageComponent: (props: GalleryImageComponentProps) => React.JSX.Element;
+  LoadingComponent: (props: GalleryLoadingComponentProps) => React.ReactNode;
+}
+
+export interface GalleryLoadingComponentProps {
+  /**
+   * The zero-based index of the item being loaded.
+   */
+  index: number;
 }
 
 export interface GalleryChildrenItemProps

@@ -1,4 +1,4 @@
-import React, { memo, PropsWithChildren, useCallback } from "react";
+import React, { memo, PropsWithChildren, useCallback, useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import Animated, {
   clamp,
@@ -36,6 +36,7 @@ interface GestureItemComponentProps extends PropsWithChildren {
   maxScale: number;
   doubleTabEnabled: boolean;
   pinchEnabled: boolean;
+  zoomEnabled?: boolean;
   swipeToCloseEnabled: boolean;
   rtl?: boolean;
   contentCenterX: number;
@@ -67,6 +68,7 @@ export const GestureItemComponent = memo(
     doubleTabEnabled,
     swipeToCloseEnabled,
     pinchEnabled,
+    zoomEnabled = true,
     rtl,
     contentCenterX,
     contentCenterY,
@@ -86,6 +88,29 @@ export const GestureItemComponent = memo(
 
     const isPanningOut = useSharedValue(false);
     const shouldClose = useSharedValue(false);
+
+    useEffect(() => {
+      if (zoomEnabled || scale.value === MIN_SCALE) return;
+
+      scale.value = MIN_SCALE;
+      savedScale.value = MIN_SCALE;
+      offset.x.value = 0;
+      offset.y.value = 0;
+      translation.x.value = 0;
+      translation.y.value = 0;
+      savedTranslation.x.value = 0;
+      savedTranslation.y.value = 0;
+    }, [
+      zoomEnabled,
+      scale,
+      savedScale,
+      offset.x,
+      offset.y,
+      translation.x,
+      translation.y,
+      savedTranslation.x,
+      savedTranslation.y,
+    ]);
 
     const animationContentContainerStyle = useAnimatedStyle(() => {
       return {
@@ -172,7 +197,7 @@ export const GestureItemComponent = memo(
     };
 
     const pinchGesture = Gesture.Pinch()
-      .enabled(pinchEnabled)
+      .enabled(pinchEnabled && zoomEnabled)
       .onStart((event) => {
         onStartInteraction(true);
         initialFocal.x.value = event.focalX - (width / 2 + offset.x.value);
@@ -440,7 +465,7 @@ export const GestureItemComponent = memo(
       });
 
     const doubleTap = Gesture.Tap()
-      .enabled(doubleTabEnabled)
+      .enabled(doubleTabEnabled && zoomEnabled)
       .numberOfTaps(2)
       .onStart(() => {
         onStartInteraction(true);

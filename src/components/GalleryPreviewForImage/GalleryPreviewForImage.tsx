@@ -23,10 +23,12 @@ import { GalleryImageItem } from "./GalleryImageItem";
 import { GalleryStatusBar } from "../GalleryStatusBar/GalleryStatusBar";
 import { ModalContainer } from "../ModalContainer/ModalContainer";
 import { DefaultImageComponent } from "../DefaultImageComponent/DefaultImageComponent";
+import { DefaultLoadingComponent } from "../DefaultLoadingComponent/DefaultLoadingComponent";
 
 export const GalleryPreviewForImage = ({
   isVisible,
   onRequestClose,
+  onChange,
   initialIndex = 0,
   gap = 24,
   simultaneousRenderedImages = 6,
@@ -40,6 +42,7 @@ export const GalleryPreviewForImage = ({
   headerTextColor = "#fff",
   images,
   ImageComponent = DefaultImageComponent,
+  LoadingComponent = DefaultLoadingComponent,
 }: GalleryPreviewForImageProps) => {
   const rtl = I18nManager.isRTL;
   const dimensions = useWindowDimensions();
@@ -55,10 +58,13 @@ export const GalleryPreviewForImage = ({
 
   useAnimatedReaction(
     () => currentIndex.value,
-    (newIndex) => {
+    (newIndex, previousIndex) => {
       scheduleOnRN(setIndex, newIndex);
+      if (onChange && previousIndex !== null && newIndex !== previousIndex) {
+        scheduleOnRN(onChange, newIndex);
+      }
     },
-    [currentIndex],
+    [currentIndex, onChange],
   );
 
   const wrapperAnimatedStyle = useAnimatedStyle(
@@ -164,6 +170,7 @@ export const GalleryPreviewForImage = ({
                       isFocused={isFocused}
                       setIsFocused={setIsFocused}
                       ImageComponent={ImageComponent}
+                      LoadingComponent={LoadingComponent}
                       springConfig={springConfig}
                       maxScale={maxScale}
                       swipeToCloseEnabled={swipeToCloseEnabled}

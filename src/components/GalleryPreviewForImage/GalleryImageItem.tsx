@@ -1,4 +1,5 @@
 import React, { memo, useCallback, useMemo, useState } from "react";
+import { StyleSheet, View } from "react-native";
 import type { GalleryImageItemProps } from "../../types";
 import { GestureItemComponent } from "../GestureItemComponent/GestureItemComponent";
 
@@ -8,8 +9,11 @@ export const GalleryImageItem = memo(
     width,
     height,
     ImageComponent,
+    LoadingComponent,
     ...props
   }: GalleryImageItemProps) => {
+    const { isLoading = false, ...source } = item;
+    const showLoader = isLoading || !source.uri;
     const [imageDimensions, setImageDimensions] = useState<{
       width: number;
       height: number;
@@ -18,6 +22,9 @@ export const GalleryImageItem = memo(
       height: height,
     });
     const contentContainerSize = useMemo(() => {
+      if (showLoader) {
+        return { width, height };
+      }
       if (height > width) {
         return {
           width: width,
@@ -28,7 +35,13 @@ export const GalleryImageItem = memo(
         width: (imageDimensions.width * height) / imageDimensions.height,
         height: height,
       };
-    }, [width, height, imageDimensions.height, imageDimensions.width]);
+    }, [
+      width,
+      height,
+      showLoader,
+      imageDimensions.height,
+      imageDimensions.width,
+    ]);
 
     const contentCenter = useMemo(
       () => ({
@@ -50,13 +63,27 @@ export const GalleryImageItem = memo(
         width={width}
         height={height}
         {...props}
+        zoomEnabled={!showLoader}
       >
-        <ImageComponent
-          source={item}
-          onLoad={onLoad}
-          style={contentContainerSize}
-        />
+        {showLoader ? (
+          <View style={[contentContainerSize, styles.loadingContainer]}>
+            <LoadingComponent index={props.index} />
+          </View>
+        ) : (
+          <ImageComponent
+            source={source}
+            onLoad={onLoad}
+            style={contentContainerSize}
+          />
+        )}
       </GestureItemComponent>
     );
   },
 );
+
+const styles = StyleSheet.create({
+  loadingContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});

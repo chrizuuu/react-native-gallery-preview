@@ -7,6 +7,7 @@ import {
   initialWindowMetrics,
 } from "react-native-safe-area-context";
 import { BasicGalleryPreview } from "./src/components/BasicGalleryPreview";
+import { PaginatedGalleryPreview } from "./src/components/PaginatedGalleryPreview";
 import { GalleryPreviewWithCustomHeader } from "./src/components/GalleryPreviewWIthCustomHeader";
 import { OpenOnSpecificImageExample } from "./src/components/OpenOnSpecificImageExample";
 import { OverlayComponentExample } from "./src/components/OverlayComponentExample";
@@ -21,6 +22,7 @@ export default function App() {
           contentContainerStyle={styles.container}
         >
           <BasicGalleryPreview />
+          <PaginatedGalleryPreview />
           <GalleryPreviewWithCustomHeader />
           <OpenOnSpecificImageExample />
           <OverlayComponentExample />
